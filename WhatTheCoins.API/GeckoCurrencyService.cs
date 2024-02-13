@@ -1,7 +1,8 @@
 ﻿namespace WhatTheCoins.API;
 
-public class GeckoCurrencyService : ICurrencyService
+public class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
 {
+    private const string CurrencyDataRequest = "https://api.coingecko.com/api/v3/coins/{0}";
     public Currency GetById(string id)
     {
         throw new NotImplementedException();
