@@ -2,7 +2,7 @@
 
 namespace WhatTheCoins.API.DTO.CoinGecko;
 
-internal record Root(
+internal record CoinGeckoDTO(
     [property: JsonPropertyName("id")] string Id,
     [property: JsonPropertyName("symbol")] string Symbol,
     [property: JsonPropertyName("name")] string Name,
