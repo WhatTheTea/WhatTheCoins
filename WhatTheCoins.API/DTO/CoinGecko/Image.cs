@@ -2,7 +2,7 @@
 
 namespace WhatTheCoins.API.DTO.CoinGecko;
 
-public record Image(
+internal record Image(
     [property: JsonPropertyName("thumb")] string Thumb,
     [property: JsonPropertyName("small")] string Small,
     [property: JsonPropertyName("large")] string Large

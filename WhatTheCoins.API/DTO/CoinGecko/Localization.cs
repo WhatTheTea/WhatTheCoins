@@ -2,7 +2,7 @@
 
 namespace WhatTheCoins.API.DTO.CoinGecko;
 
-public record Localization(
+internal record Localization(
     [property: JsonPropertyName("en")] string En,
     [property: JsonPropertyName("de")] string De,
     [property: JsonPropertyName("es")] string Es,

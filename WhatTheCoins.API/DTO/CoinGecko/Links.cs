@@ -2,7 +2,7 @@
 
 namespace WhatTheCoins.API.DTO.CoinGecko;
 
-public record Links(
+internal record Links(
     [property: JsonPropertyName("homepage")] IReadOnlyList<string> Homepage,
     [property: JsonPropertyName("whitepaper")] string Whitepaper,
     [property: JsonPropertyName("blockchain_site")] IReadOnlyList<string> BlockchainSite,

@@ -1,7 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace WhatTheCoins.API.DTO.CoinGecko;
-public record CurrentPrice(
+
+internal record CurrentPrice(
         [property: JsonPropertyName("aed")] double? Aed,
         [property: JsonPropertyName("ars")] double? Ars,
         [property: JsonPropertyName("aud")] double? Aud,

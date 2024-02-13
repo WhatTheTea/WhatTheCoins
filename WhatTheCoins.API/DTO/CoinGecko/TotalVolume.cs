@@ -2,7 +2,7 @@
 
 namespace WhatTheCoins.API.DTO.CoinGecko;
 
-public record TotalVolume(
+internal record TotalVolume(
     [property: JsonPropertyName("aed")] long? Aed,
     [property: JsonPropertyName("ars")] long? Ars,
     [property: JsonPropertyName("aud")] long? Aud,
