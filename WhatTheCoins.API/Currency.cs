@@ -5,5 +5,5 @@ public record Currency(
     string Symbol,
     double Volume,
     double PriceChange,
-    List<Seller> Sellers
+    IEnumerable<Market> Markets
     );

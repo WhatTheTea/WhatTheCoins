@@ -1,0 +1,40 @@
+﻿using System.Text.Json.Serialization;
+
+namespace WhatTheCoins.API.DTO.CoinGecko;
+
+internal record Description(
+    [property: JsonPropertyName("en")] string En,
+    [property: JsonPropertyName("de")] string De,
+    [property: JsonPropertyName("es")] string Es,
+    [property: JsonPropertyName("fr")] string Fr,
+    [property: JsonPropertyName("it")] string It,
+    [property: JsonPropertyName("pl")] string Pl,
+    [property: JsonPropertyName("ro")] string Ro,
+    [property: JsonPropertyName("hu")] string Hu,
+    [property: JsonPropertyName("nl")] string Nl,
+    [property: JsonPropertyName("pt")] string Pt,
+    [property: JsonPropertyName("sv")] string Sv,
+    [property: JsonPropertyName("vi")] string Vi,
+    [property: JsonPropertyName("tr")] string Tr,
+    [property: JsonPropertyName("ru")] string Ru,
+    [property: JsonPropertyName("ja")] string Ja,
+    [property: JsonPropertyName("zh")] string Zh,
+    [property: JsonPropertyName("zh-tw")] string ZhTw,
+    [property: JsonPropertyName("ko")] string Ko,
+    [property: JsonPropertyName("ar")] string Ar,
+    [property: JsonPropertyName("th")] string Th,
+    [property: JsonPropertyName("id")] string Id,
+    [property: JsonPropertyName("cs")] string Cs,
+    [property: JsonPropertyName("da")] string Da,
+    [property: JsonPropertyName("el")] string El,
+    [property: JsonPropertyName("hi")] string Hi,
+    [property: JsonPropertyName("no")] string No,
+    [property: JsonPropertyName("sk")] string Sk,
+    [property: JsonPropertyName("uk")] string Uk,
+    [property: JsonPropertyName("he")] string He,
+    [property: JsonPropertyName("fi")] string Fi,
+    [property: JsonPropertyName("bg")] string Bg,
+    [property: JsonPropertyName("hr")] string Hr,
+    [property: JsonPropertyName("lt")] string Lt,
+    [property: JsonPropertyName("sl")] string Sl
+);
