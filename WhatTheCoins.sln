@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatTheCoins.UI", "WhatTheCoins.UI\WhatTheCoins.UI.csproj", "{6D5D4F03-476A-40E1-8099-6F96A06640BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatTheCoins.API", "WhatTheCoins.API\WhatTheCoins.API.csproj", "{7E94A422-1976-4C72-8E2E-54F5EE603084}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatTheCoins.Tests", "WhatTheCoins.Tests\WhatTheCoins.Tests.csproj", "{95D7F6C5-DA84-4FA2-990F-EE3366512CBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6D5D4F03-476A-40E1-8099-6F96A06640BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D5D4F03-476A-40E1-8099-6F96A06640BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D5D4F03-476A-40E1-8099-6F96A06640BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D5D4F03-476A-40E1-8099-6F96A06640BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E94A422-1976-4C72-8E2E-54F5EE603084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E94A422-1976-4C72-8E2E-54F5EE603084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E94A422-1976-4C72-8E2E-54F5EE603084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E94A422-1976-4C72-8E2E-54F5EE603084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95D7F6C5-DA84-4FA2-990F-EE3366512CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95D7F6C5-DA84-4FA2-990F-EE3366512CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95D7F6C5-DA84-4FA2-990F-EE3366512CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95D7F6C5-DA84-4FA2-990F-EE3366512CBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
