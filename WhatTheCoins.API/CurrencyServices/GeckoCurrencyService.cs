@@ -7,12 +7,19 @@ namespace WhatTheCoins.API;
 public class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
 {
     private const string CurrencyDataRequest = "https://api.coingecko.com/api/v3/coins/{0}";
+    private const string OHCLDataRequest = "https://api.coingecko.com/api/v3/coins/{0}/ohlc?vs_currency={1}&days={2}";
 
-    private static readonly IReadOnlyCollection<string> MarketPlaceURLs = new HashSet<string>
+    private static readonly IReadOnlyCollection<string> MarketPlacesURL = new HashSet<string>
     {
         "https://www.coingecko.com/en/coins/{0}",
         "https://coincap.io/assets/{0}"
     };
+    private static ImmutableArray<string> BuildMarketPlaces(string id)
+    {
+        var marketPlaces = MarketPlacesURL.Select(s => string.Format(s, id))
+            .ToImmutableArray();
+        return marketPlaces;
+    }
 
     private async Task<CoinGeckoDTO> GetGeckoDTOById(string id)
     {
@@ -22,11 +29,24 @@ public class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
         return dto ?? throw new InvalidOperationException("JSON deserialized into null");
     }
 
-    private static IImmutableList<string> BuildMarketPlaces(string id)
+
+    private async Task<ImmutableArray<ImmutableArray<double>>> GetOHCLData(string id)
     {
-        var marketPlaces = MarketPlaceURLs.Select(s => string.Format(s, id))
-                                                            .ToImmutableArray();
-        return marketPlaces;
+        var response = await httpClient.GetAsync(string.Format(OHCLDataRequest, id, "usd", 7));
+        var rawJson = await response.Content.ReadAsStringAsync();
+        var dto = JsonDocument.Parse(rawJson).Deserialize<ImmutableArray<ImmutableArray<double>>>();
+        return dto;
+    }
+
+    public async Task<IImmutableList<OHCL>> GetOHCL(string id)
+    {
+        var rawOHCL = await GetOHCLData(id);
+        var candles = rawOHCL.Select(arr => 
+            new OHCL(
+                DateTimeOffset.FromUnixTimeMilliseconds((long)arr[0]).DateTime, 
+                arr[1], arr[2], arr[3], arr[4])
+        ).ToImmutableArray();
+        return candles;
     }
 
     public async Task<Currency> GetByIdAsync(string id)
@@ -42,17 +62,12 @@ public class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
         return currency;
     }
 
-    public async Task<Currency> GetByCodeAsync(string code)
+    public Task<Currency?> Search(string query)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Currency>> GetTop10Async()
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<Currency> GetExchangeRateAsync(Currency with)
+    public async Task<IImmutableList<Currency>> GetTop10Async()
     {
         throw new NotImplementedException();
     }

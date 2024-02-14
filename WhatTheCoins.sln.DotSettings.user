@@ -5,4 +5,5 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::95D7F6C5-DA84-4FA2-990F-EE3366512CBE::net8.0::WhatTheCoins.Tests.GeckoCurrencyServiceTest.GetByIdIdeal&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=OHCL/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
