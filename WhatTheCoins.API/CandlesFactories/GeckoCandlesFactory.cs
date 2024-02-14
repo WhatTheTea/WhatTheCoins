@@ -2,7 +2,7 @@
 
 namespace WhatTheCoins.API.OHCLFactories;
 
-public class CandlesFactory : ICandlesFactory
+public class GeckoCandlesFactory : ICandlesFactory
 {
     public ICandlesFactory SetReferenceCurrency(string currency)
     {
