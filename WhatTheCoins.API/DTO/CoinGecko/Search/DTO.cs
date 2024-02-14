@@ -3,6 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace WhatTheCoins.API.DTO.CoinGecko.Search;
 
-public record SearchDTO(
+internal record DTO(
     [property: JsonPropertyName("coins")] IImmutableList<Coin> Coins
 );

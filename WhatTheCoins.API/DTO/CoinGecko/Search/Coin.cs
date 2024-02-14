@@ -2,6 +2,6 @@
 
 namespace WhatTheCoins.API.DTO.CoinGecko.Search;
 
-public record Coin(
+internal record Coin(
     [property: JsonPropertyName("id")] string? Id
 );
