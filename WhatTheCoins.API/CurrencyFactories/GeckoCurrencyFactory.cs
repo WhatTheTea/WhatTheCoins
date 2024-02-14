@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Text.Json;
 using WhatTheCoins.API.DTO.CoinGecko;
+using WhatTheCoins.API.DTO.CoinGecko.Currency;
 
 namespace WhatTheCoins.API.CurrencyFactories;
 
@@ -19,11 +20,11 @@ public class GeckoCurrencyFactory(HttpClient httpClient) : ICurrencyFactory
         );
         return currency;
     }
-    private async Task<CoinGeckoDTO> GetGeckoDTOById(string id)
+    private async Task<DTO.CoinGecko.Currency.DTO> GetGeckoDTOById(string id)
     {
         var response = await httpClient.GetAsync(string.Format(CurrencyDataRequest, id));
         var rawJson = await response.Content.ReadAsStringAsync();
-        var dto = JsonDocument.Parse(rawJson).Deserialize<CoinGeckoDTO>();
+        var dto = JsonDocument.Parse(rawJson).Deserialize<DTO.CoinGecko.Currency.DTO>();
         return dto ?? throw new InvalidOperationException("JSON deserialized into null");
     }
 

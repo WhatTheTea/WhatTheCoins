@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WhatTheCoins.API.DTO.CoinGecko;
+namespace WhatTheCoins.API.DTO.CoinGecko.Currency;
 
 internal record ReposUrl(
     [property: JsonPropertyName("github")] IReadOnlyList<string> Github,

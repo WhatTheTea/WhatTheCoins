@@ -1,15 +1,13 @@
 ﻿using System.Collections.Immutable;
 using System.Text.Json;
-using WhatTheCoins.API.CurrencyFactories;
-using WhatTheCoins.API.DTO.CoinGecko;
-using WhatTheCoins.API.CandlesFactories;
 
-namespace WhatTheCoins.API;
+namespace WhatTheCoins.API.CurrencyServices;
 
-public class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
+public sealed class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
 {
-    private readonly ICandlesFactory _candlesFactory = new GeckoCandlesFactory(httpClient);
-    private readonly ICurrencyFactory _currencyFactory = new GeckoCurrencyFactory(httpClient);
+    private readonly ICandlesFactory _candlesFactory = new CandlesFactories.GeckoCandlesFactory(httpClient);
+    private readonly ICurrencyFactory _currencyFactory = new CurrencyFactories.GeckoCurrencyFactory(httpClient);
+    private const string SearchRequestURL = "https://api.coingecko.com/api/v3/search?query={0}";
     public async Task<IImmutableList<Candle>> GetCandles(string id)
     {
         var candles = await _candlesFactory.MakeCandles(id);
@@ -22,9 +20,12 @@ public class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
         return currency;
     }
 
-    public Task<Currency?> Search(string query)
+    public async Task<string?> SearchAsync(string query)
     {
-        throw new NotImplementedException();
+        var request = await httpClient.GetAsync(string.Format(SearchRequestURL, query));
+        var rawJSON = await request.Content.ReadAsStringAsync();
+        var dto = JsonDocument.Parse(rawJSON).Deserialize<DTO.CoinGecko.Search.DTO>();
+        return dto?.Coins[0].Id;
     }
 
     public async Task<IImmutableList<Currency>> GetTop10Async()

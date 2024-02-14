@@ -1,4 +1,5 @@
 ﻿using WhatTheCoins.API;
+using WhatTheCoins.API.CurrencyServices;
 
 namespace WhatTheCoins.Tests;
 
@@ -11,18 +12,31 @@ public class GeckoCurrencyServiceTest
     {
         var httpClient = HttpClientMock.MockHttpClient(ExpectedData.GeckoApiGetIdResponse);
         var service = new GeckoCurrencyService(httpClient);
+        
         var data = await service.GetByIdAsync("bitcoin");
         
         data.Should().BeEquivalentTo(ExpectedData.ExpectedCurrency);
     }
 
     [Test]
-    public async Task GetOHCLIdeal()
+    public async Task GetCandlesIdeal()
     {
         var httpClient = HttpClientMock.MockHttpClient(ExpectedData.GeckoApiGetOHCLResponse);
         var service = new GeckoCurrencyService(httpClient);
+        
         var data = await service.GetCandles("bitcoin");
 
-        data.Should().BeEquivalentTo(ExpectedData.ExpectedOHCLs);
+        data.Should().BeEquivalentTo(ExpectedData.ExpectedCandles);
+    }
+
+    [Test]
+    public async Task SearchByCode()
+    {
+        var httpClient = HttpClientMock.MockHttpClient(ExpectedData.GeckoApiSearchResponseBTC);
+        var service = new GeckoCurrencyService(httpClient);
+        
+        var data = await service.SearchAsync("btc");
+
+        data.Should().BeEquivalentTo(ExpectedData.ExpectedSearchResultBTC);
     }
 }
