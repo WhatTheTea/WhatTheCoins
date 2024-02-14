@@ -38,11 +38,11 @@ public class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
         return dto;
     }
 
-    public async Task<IImmutableList<OHCL>> GetOHCL(string id)
+    public async Task<IImmutableList<Candle>> GetOHCL(string id)
     {
         var rawOHCL = await GetOHCLData(id);
         var candles = rawOHCL.Select(arr => 
-            new OHCL(
+            new Candle(
                 DateTimeOffset.FromUnixTimeMilliseconds((long)arr[0]).DateTime, 
                 arr[1], arr[2], arr[3], arr[4])
         ).ToImmutableArray();

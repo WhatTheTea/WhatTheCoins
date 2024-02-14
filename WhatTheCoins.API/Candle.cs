@@ -1,6 +1,6 @@
 ﻿namespace WhatTheCoins.API;
 
-public sealed record OHCL
+public sealed record Candle
 (
     DateTime DateTime,
     double Open,

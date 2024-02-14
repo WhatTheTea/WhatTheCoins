@@ -2,19 +2,19 @@
 
 namespace WhatTheCoins.API.OHCLFactories;
 
-public class OHCLFactory : IOHCLFactory
+public class CandlesFactory : ICandlesFactory
 {
-    public IOHCLFactory SetReferenceCurrency(string currency)
+    public ICandlesFactory SetReferenceCurrency(string currency)
     {
         throw new NotImplementedException();
     }
 
-    public IOHCLFactory SetDays(int days)
+    public ICandlesFactory SetDays(int days)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IImmutableList<OHCL>> MakeOHCLs(string currencyId)
+    public Task<IImmutableList<Candle>> MakeCandles(string currencyId)
     {
         throw new NotImplementedException();
     }

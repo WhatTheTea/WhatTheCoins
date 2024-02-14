@@ -26,13 +26,13 @@ public static class ExpectedData
         }.ToImmutableArray()
     );
 
-    public static readonly ImmutableArray<OHCL> ExpectedOHCLs =
+    public static readonly ImmutableArray<Candle> ExpectedOHCLs =
     [
-        new OHCL(
+        new Candle(
             DateTimeOffset.FromUnixTimeMilliseconds(1707350400000).DateTime,
             43606, 44176, 43606, 44165
         ),
-        new OHCL(
+        new Candle(
             DateTimeOffset.FromUnixTimeMilliseconds(1707364800000).DateTime,
             44318, 44692, 44318, 44600)
     ];
