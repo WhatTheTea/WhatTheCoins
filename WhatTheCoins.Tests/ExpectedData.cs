@@ -36,4 +36,9 @@ public static class ExpectedData
             DateTimeOffset.FromUnixTimeMilliseconds(1707364800000).DateTime,
             44318, 44692, 44318, 44600)
     ];
+
+    public const string GeckoApiSearchResponseBTC =
+        "{\"coins\":[{\"id\":\"bitcoin\",\"name\":\"Bitcoin\",\"api_symbol\":\"bitcoin\",\"symbol\":\"BTC\",\"market_cap_rank\":1,\"thumb\":\"https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png\",\"large\":\"https://assets.coingecko.com/coins/images/1/large/bitcoin.png\"},{\"id\":\"wrapped-bitcoin\",\"name\":\"Wrapped Bitcoin\",\"api_symbol\":\"wrapped-bitcoin\",\"symbol\":\"WBTC\",\"market_cap_rank\":16,\"thumb\":\"https://assets.coingecko.com/coins/images/7598/thumb/wrapped_bitcoin_wbtc.png\",\"large\":\"https://assets.coingecko.com/coins/images/7598/large/wrapped_bitcoin_wbtc.png\"}}";
+
+    public const string ExpectedSearchResultBTC = "bitcoin";
 }
