@@ -1,4 +1,5 @@
 ﻿using WhatTheCoins.API;
+using WhatTheCoins.API.CurrencyServices;
 
 namespace WhatTheCoins.Tests;
 
