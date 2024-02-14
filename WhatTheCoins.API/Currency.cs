@@ -1,9 +1,12 @@
-﻿namespace WhatTheCoins.API;
+﻿using System.Collections.Immutable;
 
-public record Currency(
+namespace WhatTheCoins.API;
+
+public sealed record Currency(
     string Id,
     string Symbol,
     double Volume,
     double PriceChange,
-    IEnumerable<Market> Markets
+    IImmutableDictionary<string, double> SymbolToPrice,
+    IImmutableList<string> MarketPlaces
     );
