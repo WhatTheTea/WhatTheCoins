@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WhatTheCoins.API.DTO.CoinGecko;
+namespace WhatTheCoins.API.DTO.CoinGecko.Currency;
 
-internal record CoinGeckoDTO(
+internal record DTO(
     [property: JsonPropertyName("id")] string Id,
     [property: JsonPropertyName("symbol")] string Symbol,
     [property: JsonPropertyName("name")] string Name,
