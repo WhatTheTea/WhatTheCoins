@@ -4,6 +4,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b28d4955_002D183e_002D4da9_002D8822_002D1b3c9adb3dc4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetByIdIdeal" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::95D7F6C5-DA84-4FA2-990F-EE3366512CBE::net8.0::WhatTheCoins.Tests.GeckoCurrencyServiceTest.GetByIdIdeal&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::95D7F6C5-DA84-4FA2-990F-EE3366512CBE::net8.0::WhatTheCoins.Tests.GeckoCurrencyServiceTest.GetOHCLIdeal&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=OHCL/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
