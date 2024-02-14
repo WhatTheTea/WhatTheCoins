@@ -13,12 +13,22 @@ public class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
         throw new NotImplementedException();
     }
 
-    public IEnumerable<Currency> GetTop10()
+    public async Task<Currency> GetByIdAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Currency GetExchangeRate(Currency with)
+    public async Task<Currency> GetByCodeAsync(string code)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<Currency>> GetTop10Async()
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<Currency> GetExchangeRateAsync(Currency with)
     {
         throw new NotImplementedException();
     }

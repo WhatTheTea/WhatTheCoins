@@ -2,8 +2,8 @@
 
 public interface ICurrencyService
 {
-    Currency GetById(string id);
-    Currency GetByCode(string code);
-    IEnumerable<Currency> GetTop10();
-    Currency GetExchangeRate(Currency with);
+    Task<Currency> GetByIdAsync(string id);
+    Task<Currency> GetByCodeAsync(string code);
+    Task<IEnumerable<Currency>> GetTop10Async();
+    Task<Currency> GetExchangeRateAsync(Currency with);
 }

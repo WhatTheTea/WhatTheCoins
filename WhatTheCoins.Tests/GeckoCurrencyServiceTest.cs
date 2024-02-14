@@ -41,9 +41,9 @@ public class GeckoCurrencyServiceTest
     }
 
     [Test]
-    public void GetByIdIdeal()
+    public async Task GetByIdIdeal()
     {
-        var data = _service.GetById("bitcoin");
+        var data = await _service.GetByIdAsync("bitcoin");
         
         Assert.That(data, Is.EqualTo(_idealBtcCurrency));
     }
