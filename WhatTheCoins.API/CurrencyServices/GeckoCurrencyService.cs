@@ -2,31 +2,17 @@
 using System.Text.Json;
 using WhatTheCoins.API.CurrencyFactories;
 using WhatTheCoins.API.DTO.CoinGecko;
-using WhatTheCoins.API.OHCLFactories;
+using WhatTheCoins.API.CandlesFactories;
 
 namespace WhatTheCoins.API;
 
 public class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
 {
-    private const string OHCLDataRequest = "https://api.coingecko.com/api/v3/coins/{0}/ohlc?vs_currency={1}&days={2}";
-    private ICandlesFactory _candlesFactory = new GeckoCandlesFactory();
-    private ICurrencyFactory _currencyFactory = new GeckoCurrencyFactory(httpClient);
-    private async Task<ImmutableArray<ImmutableArray<double>>> GetOHCLData(string id)
+    private readonly ICandlesFactory _candlesFactory = new GeckoCandlesFactory(httpClient);
+    private readonly ICurrencyFactory _currencyFactory = new GeckoCurrencyFactory(httpClient);
+    public async Task<IImmutableList<Candle>> GetCandles(string id)
     {
-        var response = await httpClient.GetAsync(string.Format(OHCLDataRequest, id, "usd", 7));
-        var rawJson = await response.Content.ReadAsStringAsync();
-        var dto = JsonDocument.Parse(rawJson).Deserialize<ImmutableArray<ImmutableArray<double>>>();
-        return dto;
-    }
-
-    public async Task<IImmutableList<Candle>> GetOHCL(string id)
-    {
-        var rawOHCL = await GetOHCLData(id);
-        var candles = rawOHCL.Select(arr => 
-            new Candle(
-                DateTimeOffset.FromUnixTimeMilliseconds((long)arr[0]).DateTime, 
-                arr[1], arr[2], arr[3], arr[4])
-        ).ToImmutableArray();
+        var candles = await _candlesFactory.MakeCandles(id);
         return candles;
     }
 

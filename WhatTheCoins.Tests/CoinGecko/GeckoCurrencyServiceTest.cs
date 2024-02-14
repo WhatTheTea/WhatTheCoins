@@ -21,7 +21,7 @@ public class GeckoCurrencyServiceTest
     {
         var httpClient = HttpClientMock.MockHttpClient(ExpectedData.GeckoApiGetOHCLResponse);
         var service = new GeckoCurrencyService(httpClient);
-        var data = await service.GetOHCL("bitcoin");
+        var data = await service.GetCandles("bitcoin");
 
         data.Should().BeEquivalentTo(ExpectedData.ExpectedOHCLs);
     }
