@@ -26,7 +26,7 @@ public static class ExpectedData
         }.ToImmutableArray()
     );
 
-    public static readonly ImmutableArray<Candle> ExpectedOHCLs =
+    public static readonly ImmutableArray<Candle> ExpectedCandles =
     [
         new Candle(
             DateTimeOffset.FromUnixTimeMilliseconds(1707350400000).DateTime,
