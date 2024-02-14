@@ -22,7 +22,7 @@ public class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
         return currency;
     }
 
-    public Task<Currency?> Search(string query)
+    public Task<Currency?> SearchAsync(string query)
     {
         throw new NotImplementedException();
     }
