@@ -1,34 +1,40 @@
 ﻿using System.Collections.Immutable;
 using System.Text.Json;
+using WhatTheCoins.API.CandlesFactories;
+using WhatTheCoins.API.CurrencyFactories;
 
 namespace WhatTheCoins.API.CurrencyServices;
 
-public sealed class GeckoCurrencyService(HttpClient httpClient) : ICurrencyService
+public sealed class GeckoCurrencyService : CurrencyServiceBase
 {
-    private readonly ICandlesFactory _candlesFactory = new CandlesFactories.GeckoCandlesFactory(httpClient);
-    private readonly ICurrencyFactory _currencyFactory = new CurrencyFactories.GeckoCurrencyFactory(httpClient);
-    private const string SearchRequestURL = "https://api.coingecko.com/api/v3/search?query={0}";
-    public async Task<IImmutableList<Candle>> GetCandles(string id)
+    private readonly HttpClient _httpClient;
+
+    public GeckoCurrencyService(HttpClient httpClient) : base(httpClient,
+        new GeckoCurrencyFactory(httpClient),
+        new GeckoCandlesFactory(httpClient))
     {
-        var candles = await _candlesFactory.MakeCandles(id);
+        _httpClient = httpClient;
+        SearchRequestURL = "https://api.coingecko.com/api/v3/search?query={0}";
+    }
+
+    public override async Task<IImmutableList<Candle>> GetCandles(string id)
+    {
+        var candles = await CandlesFactory.MakeCandles(id);
         return candles;
     }
 
-    public async Task<Currency> GetByIdAsync(string id)
+    public override async Task<Currency> GetByIdAsync(string id)
     {
-        var currency = await _currencyFactory.MakeCurrency(id);
+        var currency = await CurrencyFactory.MakeCurrency(id);
         return currency;
     }
 
-    public async Task<string?> SearchAsync(string query)
+    public override async Task<string?> SearchAsync(string query)
     {
-        var request = await httpClient.GetAsync(string.Format(SearchRequestURL, query));
-        var rawJSON = await request.Content.ReadAsStringAsync();
-        var dto = JsonDocument.Parse(rawJSON).Deserialize<DTO.CoinGecko.Search.DTO>();
+        var dto = await GetDTO<DTO.CoinGecko.Search.DTO>(string.Format(SearchRequestURL, query));
         return dto?.Coins[0].Id;
     }
-
-    public async Task<IImmutableList<Currency>> GetTop10Async()
+    public override async Task<IImmutableList<Currency>> GetTop10Async()
     {
         throw new NotImplementedException();
     }
