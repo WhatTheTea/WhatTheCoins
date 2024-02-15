@@ -1,17 +1,16 @@
 ﻿using WhatTheCoins.API;
-using WhatTheCoins.API.CurrencyServices;
 
-namespace WhatTheCoins.Tests;
+namespace WhatTheCoins.Tests.CoinGecko;
 
 [TestFixture]
-[TestOf(typeof(GeckoCurrencyService))]
-public class GeckoCurrencyServiceTest
+[TestOf(typeof(CurrencyService))]
+public class CoinGeckoApiProvider
 {
     [Test]
     public async Task GetByIdIdeal()
     {
         var httpClient = HttpClientMock.MockHttpClient(ExpectedData.GeckoApiGetIdResponse);
-        var service = new GeckoCurrencyService(httpClient);
+        var service = new CurrencyService(new API.ApiProviders.CoinGeckoApiProvider(httpClient));
         
         var data = await service.GetByIdAsync("bitcoin");
         
@@ -22,7 +21,7 @@ public class GeckoCurrencyServiceTest
     public async Task GetCandlesIdeal()
     {
         var httpClient = HttpClientMock.MockHttpClient(ExpectedData.GeckoApiGetOHCLResponse);
-        var service = new GeckoCurrencyService(httpClient);
+        var service = new CurrencyService(new API.ApiProviders.CoinGeckoApiProvider(httpClient));
         
         var data = await service.GetCandles("bitcoin");
 
@@ -33,7 +32,7 @@ public class GeckoCurrencyServiceTest
     public async Task SearchByCode()
     {
         var httpClient = HttpClientMock.MockHttpClient(ExpectedData.GeckoApiSearchResponseBTC);
-        var service = new GeckoCurrencyService(httpClient);
+        var service = new CurrencyService(new API.ApiProviders.CoinGeckoApiProvider(httpClient));
         
         var data = await service.SearchAsync("btc");
 
