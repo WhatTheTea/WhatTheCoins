@@ -37,7 +37,7 @@ public static class ExpectedData
 
     public const string ExpectedSearchResultBTC = "bitcoin";
 
-    public static IApiProvider CreateIdealProvider()
+    public static IApiProvider CreateExpectedProvider()
     {
         var idealProvider = new Mock<IApiProvider>();
         idealProvider.Setup(provider => provider.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency);

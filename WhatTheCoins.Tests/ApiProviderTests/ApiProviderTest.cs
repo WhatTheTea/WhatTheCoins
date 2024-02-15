@@ -46,9 +46,13 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     [Test]
     public virtual async Task Top10()
     {
-        // var httpClient = HttpClientMock.MockHttpClient();
-        // var service = new CurrencyService(new API.ApiProviders.CoinGeckoApiProvider(httpClient));
+        var httpClient = HttpClientMock.MockHttpClient(Top10Response);
+        var provider = MakeApiProvider(httpClient);
+
+        var data = await provider.GetTop10Async();
+
         throw new NotImplementedException();
+        data.Should().BeEquivalentTo();
     }
 
     [OneTimeSetUp]

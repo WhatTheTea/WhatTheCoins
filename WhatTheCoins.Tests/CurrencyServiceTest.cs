@@ -10,7 +10,7 @@ public class CurrencyServiceTest
     [Test]
     public async Task SearchIdeal()
     {
-        var apiProvider = ExpectedData.CreateIdealProvider();
+        var apiProvider = ExpectedData.CreateExpectedProvider();
         var service = new CurrencyService(apiProvider);
 
         var search = await service.SearchAsync("btc");
