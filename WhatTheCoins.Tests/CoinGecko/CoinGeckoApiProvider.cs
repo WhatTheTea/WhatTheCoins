@@ -3,7 +3,7 @@
 namespace WhatTheCoins.Tests.CoinGecko;
 
 [TestFixture]
-[TestOf(typeof(CurrencyService))]
+[TestOf(typeof(CoinGeckoApiProvider))]
 public class CoinGeckoApiProvider
 {
     [Test]
@@ -32,9 +32,9 @@ public class CoinGeckoApiProvider
     public async Task SearchByCode()
     {
         var httpClient = HttpClientMock.MockHttpClient(HttpResponses.GeckoApiSearchResponseBTC);
-        var service = new CurrencyService(new API.ApiProviders.CoinGeckoApiProvider(httpClient));
+        var provider = new API.ApiProviders.CoinGeckoApiProvider(httpClient);
         
-        var data = await service.SearchAsync("btc");
+        var data = await provider.SearchAsync("btc");
 
         data.Should().BeEquivalentTo(ExpectedData.ExpectedSearchResultBTC);
     }
