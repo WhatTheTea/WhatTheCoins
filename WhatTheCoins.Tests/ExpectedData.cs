@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using Moq;
 using WhatTheCoins.API;
 
 namespace WhatTheCoins.Tests;
@@ -12,9 +13,9 @@ public static class ExpectedData
         Volume: 33970260124,
         SymbolToPrice: new Dictionary<string, double>
         {
-            {"btc",1d},
-            {"usd",49418}
-            
+            { "btc", 1d },
+            { "usd", 49418 }
+
         }.ToImmutableDictionary(),
         MarketPlaces: new HashSet<string>
         {
@@ -35,4 +36,18 @@ public static class ExpectedData
     ];
 
     public const string ExpectedSearchResultBTC = "bitcoin";
+
+    public static IApiProvider CreateIdealProvider()
+    {
+        var idealProvider = new Mock<IApiProvider>();
+        idealProvider.Setup(provider => provider.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency);
+        idealProvider.Setup(provider => provider.SearchAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency.Id);
+        idealProvider.Setup(provider => provider.GetCandles(It.IsAny<string>(),
+                    It.IsAny<int>(),
+                    It.IsAny<string>()))
+                .ReturnsAsync(new ImmutableArray<Candle>());
+        idealProvider.Setup(provider => provider.GetTop10Async()).ReturnsAsync(new ImmutableArray<string>());
+        return idealProvider.Object;
+    }
+
 }
