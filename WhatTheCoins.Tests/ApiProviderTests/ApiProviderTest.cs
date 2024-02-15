@@ -50,4 +50,7 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
         // var service = new CurrencyService(new API.ApiProviders.CoinGeckoApiProvider(httpClient));
         throw new NotImplementedException();
     }
+
+    [OneTimeSetUp]
+    public abstract void SetUpFixture();
 }
