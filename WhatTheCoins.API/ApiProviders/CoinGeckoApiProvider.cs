@@ -37,7 +37,7 @@ public class CoinGeckoApiProvider(HttpClient httpClient) : ApiProviderBase(httpC
         return dto?.Coins[0].Id;
     }
 
-    public override Task<IImmutableList<Currency>> GetTop10Async()
+    public override Task<IImmutableList<string>> GetTop10Async()
     {
         throw new NotImplementedException();
     }
