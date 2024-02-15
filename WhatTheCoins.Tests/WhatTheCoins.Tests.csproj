@@ -23,8 +23,4 @@
       <ProjectReference Include="..\WhatTheCoins.API\WhatTheCoins.API.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="CoinCap\" />
-    </ItemGroup>
-
 </Project>
