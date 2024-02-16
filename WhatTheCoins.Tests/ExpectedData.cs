@@ -37,17 +37,20 @@ public static class ExpectedData
 
     public const string ExpectedSearchResultBTC = "bitcoin";
 
-    public static IApiProvider CreateExpectedProvider()
+    public static IApiProvider ExpectedProvider
     {
-        var idealProvider = new Mock<IApiProvider>();
-        idealProvider.Setup(provider => provider.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency);
-        idealProvider.Setup(provider => provider.SearchAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency.Id);
-        idealProvider.Setup(provider => provider.GetCandles(It.IsAny<string>(),
+        get
+        {
+            var idealProvider = new Mock<IApiProvider>();
+            idealProvider.Setup(provider => provider.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency);
+            idealProvider.Setup(provider => provider.SearchAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency.Id);
+            idealProvider.Setup(provider => provider.GetCandles(It.IsAny<string>(),
                     It.IsAny<int>(),
                     It.IsAny<string>()))
                 .ReturnsAsync(ExpectedCandles);
-        idealProvider.Setup(provider => provider.GetTop10Async()).ReturnsAsync(ExpectedCoins.ToImmutableArray());
-        return idealProvider.Object;
+            idealProvider.Setup(provider => provider.GetTop10Async()).ReturnsAsync(ExpectedCoins.ToImmutableArray());
+            return idealProvider.Object;
+        }
     }
 
     public static readonly string[] ExpectedCoins =
@@ -56,15 +59,17 @@ public static class ExpectedData
         "avalanche-2"
     ];
 
-    public static IEnumerable<Currency> CreateExpectedCurrencies()
+    public static IEnumerable<Currency> ExpectedCurrencies
     {
-        foreach (var coin in ExpectedCoins)
+        get
         {
-            var mock = new Mock<Currency>();
-            mock.SetupAllProperties();
-            mock.Setup(currency => currency.Id).Returns(coin);
-            yield return mock.Object;
+            foreach (var coin in ExpectedCoins)
+            {
+                var mock = new Mock<Currency>();
+                mock.SetupAllProperties();
+                mock.Setup(currency => currency.Id).Returns(coin);
+                yield return mock.Object;
+            }
         }
     }
-
 }
