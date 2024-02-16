@@ -21,10 +21,10 @@ public class CoinGeckoApiProvider(HttpClient httpClient) : ApiProviderBase(httpC
         var dto = await GetDTO<DTO.CoinGecko.Search.DTO>(string.Format(SearchRequestURL, query));
         return dto?.Coins[0].Id;
     }
-    public override async Task<IImmutableList<Currency>> GetTop10Async()
+    public override async Task<IImmutableList<string>> GetTop10Async()
     {
         var rawCurrencies = await GetDTO<ImmutableArray<DTO.CoinGecko.Currency.DTO>>(Top10RequestURL);
-        var currencies = rawCurrencies.Select(dto => dto.ToCurrency()).ToImmutableArray();
+        var currencies = rawCurrencies.Select(dto => dto.Id).ToImmutableArray();
         return currencies;
     }
     public override async Task<IImmutableList<Candle>> GetCandles(string id, int days = 7,

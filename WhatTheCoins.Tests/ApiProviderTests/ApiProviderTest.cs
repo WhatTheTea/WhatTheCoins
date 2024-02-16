@@ -5,7 +5,7 @@ namespace WhatTheCoins.Tests.ApiProviderTests;
 [TestFixture]
 public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiProvider
 {
-    protected static IApiProvider MakeApiProvider(HttpClient httpClient) =>
+    private static IApiProvider MakeApiProvider(HttpClient httpClient) =>
         (TApiProvider)Activator.CreateInstance(typeof(TApiProvider), httpClient)!;
 
     protected static string GetIdResponse = "";
@@ -50,7 +50,7 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
 
         var data = await provider.GetTop10Async();
 
-        data.Should().BeEquivalentTo(ExpectedData.CreateExpectedCurrencies());
+        data.Should().BeEquivalentTo(ExpectedData.ExpectedCoins);
     }
 
     [OneTimeSetUp]

@@ -14,7 +14,7 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
         throw new NotImplementedException();
     }
 
-    public override Task<IImmutableList<Currency>> GetTop10Async()
+    public override Task<IImmutableList<string>> GetTop10Async()
     {
         throw new NotImplementedException();
     }
