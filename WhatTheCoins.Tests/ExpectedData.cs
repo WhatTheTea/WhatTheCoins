@@ -45,8 +45,8 @@ public static class ExpectedData
         idealProvider.Setup(provider => provider.GetCandles(It.IsAny<string>(),
                     It.IsAny<int>(),
                     It.IsAny<string>()))
-                .ReturnsAsync(new ImmutableArray<Candle>());
-        idealProvider.Setup(provider => provider.GetTop10Async()).ReturnsAsync(new ImmutableArray<string>());
+                .ReturnsAsync(new ImmutableArray<Candle>()); // TODO
+        idealProvider.Setup(provider => provider.GetTop10Async()).ReturnsAsync(new ImmutableArray<string>()); // TODO
         return idealProvider.Object;
     }
 

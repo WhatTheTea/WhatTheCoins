@@ -1,7 +1,7 @@
 ﻿using WhatTheCoins.API;
 using WhatTheCoins.API.ApiProviders;
 
-namespace WhatTheCoins.Tests;
+namespace WhatTheCoins.Tests.ApiProviderTests;
 
 [TestFixture(typeof(CoinGeckoApiProvider))]
 public class CoinGeckoApiProviderTest<TApiProvider> : ApiProviderTest<TApiProvider> where TApiProvider : IApiProvider
