@@ -16,9 +16,9 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     public virtual async Task GetByIdIdeal()
     {
         var httpClient = HttpClientMock.MockHttpClient(GetIdResponse);
-        var service = new CurrencyService(MakeApiProvider(httpClient));
+        var provider = MakeApiProvider(httpClient);
         
-        var data = await service.GetByIdAsync("bitcoin");
+        var data = await provider.GetByIdAsync("bitcoin");
         
         data.Should().BeEquivalentTo(ExpectedData.ExpectedCurrency);
     }
@@ -26,9 +26,9 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     public virtual async Task GetCandlesIdeal()
     {
         var httpClient = HttpClientMock.MockHttpClient(GetOHCLResponse);
-        var service = MakeApiProvider(httpClient);
+        var provider = MakeApiProvider(httpClient);
         
-        var data = await service.GetCandles("bitcoin", 7, "usd");
+        var data = await provider.GetCandles("bitcoin", 7, "usd");
 
         data.Should().BeEquivalentTo(ExpectedData.ExpectedCandles);
     }

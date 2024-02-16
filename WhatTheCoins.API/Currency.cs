@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using WhatTheCoins.API.ApiProviders;
 
 namespace WhatTheCoins.API;
 
@@ -9,4 +10,4 @@ public sealed record Currency(
     double PriceChange,
     IImmutableDictionary<string, double> SymbolToPrice,
     IImmutableList<string> MarketPlaces
-    );
+);
