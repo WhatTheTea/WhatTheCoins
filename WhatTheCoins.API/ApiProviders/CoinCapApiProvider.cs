@@ -4,6 +4,10 @@ namespace WhatTheCoins.API.ApiProviders;
 
 public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpClient)
 {
+    private const string CurrencyDataRequestURL = "";
+    private const string CandlesDataRequestURL = "";
+    private const string SearchRequestURL = "";
+    private const string Top10RequestURL = "";
     public override Task<Currency> GetByIdAsync(string id)
     {
         throw new NotImplementedException();
