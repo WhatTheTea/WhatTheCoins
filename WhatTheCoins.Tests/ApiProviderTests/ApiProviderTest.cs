@@ -51,7 +51,7 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
         var data = await provider.GetTop10Async();
 
         throw new NotImplementedException();
-        data.Should().BeEquivalentTo();
+        //data.Should().BeEquivalentTo();
     }
 
     [OneTimeSetUp]

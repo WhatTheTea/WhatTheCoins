@@ -10,6 +10,6 @@ internal record DTO(
     [property: JsonPropertyName("description")] Description Description,
     [property: JsonPropertyName("links")] Links Links,
     [property: JsonPropertyName("image")] Image Image,
-    [property: JsonPropertyName("market_cap_rank")] int? MarketCapRank,
+    [property: JsonPropertyName("market_cap_rank")] int MarketCapRank,
     [property: JsonPropertyName("market_data")] MarketData MarketData
 );

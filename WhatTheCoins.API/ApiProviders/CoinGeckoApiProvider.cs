@@ -4,17 +4,20 @@ namespace WhatTheCoins.API.ApiProviders;
 
 public class CoinGeckoApiProvider(HttpClient httpClient) : ApiProviderBase(httpClient)
 {
-    private const string CurrencyDataRequest = "https://api.coingecko.com/api/v3/coins/{0}";
-    private const string CandlesDataRequest =
+    private const string CurrencyDataRequestURL = "https://api.coingecko.com/api/v3/coins/{0}";
+    private const string CandlesDataRequestURL =
         "https://api.coingecko.com/api/v3/coins/{0}/ohlc?vs_currency={1}&days={2}";
     private const string SearchRequestURL = "https://api.coingecko.com/api/v3/search?query={0}";
+
+    private const string Top10RequestURL =
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h&locale=en";
     private static readonly ImmutableArray<string> MarketPlacesURL = [
         "https://www.coingecko.com/en/coins/{0}",
         "https://coincap.io/assets/{0}"
     ];
     public override async Task<Currency> GetByIdAsync(string id)
     {   // TODO: Own exceptions
-        var dto = await GetDTO<DTO.CoinGecko.Currency.DTO>(string.Format(CurrencyDataRequest, id)) ?? throw new Exception("id not found on CoinGecko");
+        var dto = await GetDTO<DTO.CoinGecko.Currency.DTO>(string.Format(CurrencyDataRequestURL, id)) ?? throw new Exception("id not found on CoinGecko");
         var marketPlaces = BuildMarketPlaces(dto.Id);
         var currency = new Currency(dto.Id, dto.Symbol,
             dto.MarketData.TotalVolume["usd"],
@@ -37,14 +40,14 @@ public class CoinGeckoApiProvider(HttpClient httpClient) : ApiProviderBase(httpC
         return dto?.Coins[0].Id;
     }
 
-    public override Task<IImmutableList<string>> GetTop10Async()
+    public override Task<IImmutableList<Currency>> GetTop10Async()
     {
         throw new NotImplementedException();
     }
     public override async Task<IImmutableList<Candle>> GetCandles(string id, int days = 7, string referenceCurrency = "usd")
     {
         var rawCandles = await GetDTO<ImmutableArray<ImmutableArray<double>>>(
-            string.Format(CandlesDataRequest,
+            string.Format(CandlesDataRequestURL,
             id,
             days,
             referenceCurrency));
