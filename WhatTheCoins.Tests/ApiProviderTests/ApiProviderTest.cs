@@ -50,7 +50,7 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
 
         var data = await provider.GetTop10Async();
 
-        data.Should().BeEquivalentTo(ExpectedData.ExpectedCoins);
+        data.Should().ContainInOrder(ExpectedData.ExpectedCoins);
     }
 
     [OneTimeSetUp]
