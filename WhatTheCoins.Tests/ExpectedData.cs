@@ -50,4 +50,21 @@ public static class ExpectedData
         return idealProvider.Object;
     }
 
+    public static readonly string[] ExpectedCoins =
+    [
+        "bitcoin", "ethereum", "tether", "binancecoin", "solana", "ripple", "usd-coin", "staked-ether", "cardano",
+        "avalanche-2"
+    ];
+
+    public static IEnumerable<Currency> CreateExpectedCurrencies()
+    {
+        foreach (var coin in ExpectedCoins)
+        {
+            var mock = new Mock<Currency>();
+            mock.SetupAllProperties();
+            mock.Setup(currency => currency.Id).Returns(coin);
+            yield return mock.Object;
+        }
+    }
+
 }
