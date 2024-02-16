@@ -46,7 +46,7 @@ public static class ExpectedData
                     It.IsAny<int>(),
                     It.IsAny<string>()))
                 .ReturnsAsync(new ImmutableArray<Candle>()); // TODO
-        idealProvider.Setup(provider => provider.GetTop10Async()).ReturnsAsync(new ImmutableArray<string>()); // TODO
+        idealProvider.Setup(provider => provider.GetTop10Async()).ReturnsAsync(new ImmutableArray<Currency>()); // TODO
         return idealProvider.Object;
     }
 

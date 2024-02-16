@@ -24,12 +24,6 @@ public class CurrencyService(IApiProvider apiProvider) : ICurrencyService
         if (string.IsNullOrWhiteSpace(foundId)) throw new Exception("Currency Id not found"); 
         return await ApiProvider.GetByIdAsync(foundId);
     }
-    public async Task<IImmutableList<Currency>> GetTop10Async()
-    {
-        var foundIds = await ApiProvider.GetTop10Async();
-        var currencies = await Task.WhenAll( // await all Api requests and dto transformations
-            foundIds.Select(async id => 
-                await ApiProvider.GetByIdAsync(id)));
-        return currencies.ToImmutableArray();
-    }
+
+    public Task<IImmutableList<Currency>> GetTop10Async() => ApiProvider.GetTop10Async();
 }
