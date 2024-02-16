@@ -1,12 +1,11 @@
 ﻿using WhatTheCoins.API;
-using WhatTheCoins.API.ApiProviders;
 
-namespace WhatTheCoins.Tests;
+namespace WhatTheCoins.Tests.ApiProviderTests;
 
 [TestFixture]
 public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiProvider
 {
-    protected static IApiProvider MakeApiProvider(HttpClient httpClient) =>
+    private static IApiProvider MakeApiProvider(HttpClient httpClient) =>
         (TApiProvider)Activator.CreateInstance(typeof(TApiProvider), httpClient)!;
 
     protected static string GetIdResponse = "";
@@ -17,9 +16,9 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     public virtual async Task GetByIdIdeal()
     {
         var httpClient = HttpClientMock.MockHttpClient(GetIdResponse);
-        var service = new CurrencyService(MakeApiProvider(httpClient));
+        var provider = MakeApiProvider(httpClient);
         
-        var data = await service.GetByIdAsync("bitcoin");
+        var data = await provider.GetByIdAsync("bitcoin");
         
         data.Should().BeEquivalentTo(ExpectedData.ExpectedCurrency);
     }
@@ -27,9 +26,9 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     public virtual async Task GetCandlesIdeal()
     {
         var httpClient = HttpClientMock.MockHttpClient(GetOHCLResponse);
-        var service = MakeApiProvider(httpClient);
+        var provider = MakeApiProvider(httpClient);
         
-        var data = await service.GetCandles("bitcoin", 7, "usd");
+        var data = await provider.GetCandles("bitcoin", 7, "usd");
 
         data.Should().BeEquivalentTo(ExpectedData.ExpectedCandles);
     }
@@ -46,9 +45,12 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     [Test]
     public virtual async Task Top10()
     {
-        // var httpClient = HttpClientMock.MockHttpClient();
-        // var service = new CurrencyService(new API.ApiProviders.CoinGeckoApiProvider(httpClient));
-        throw new NotImplementedException();
+        var httpClient = HttpClientMock.MockHttpClient(Top10Response);
+        var provider = MakeApiProvider(httpClient);
+
+        var data = await provider.GetTop10Async();
+
+        data.Should().ContainInOrder(ExpectedData.ExpectedCoins);
     }
 
     [OneTimeSetUp]
