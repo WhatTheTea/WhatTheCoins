@@ -21,25 +21,29 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
         return currency;
     }
 
-    private async Task<IImmutableDictionary<string, double>> GetExchangeRatesFor(Currency currency)
+    private async Task<ImmutableDictionary<string, double>> GetExchangeRatesFor(Currency currency)
     {
         var dto = await GetDTO<DTO<IEnumerable<RatesData>>>(ExchangeRatesRequestURL);
         var priceUSD = currency.SymbolToPrice["usd"];
-        var symbolToPrice = new Dictionary<string, double>(currency.SymbolToPrice);
-        foreach (var d in dto.Data)
-        {
-            if (d.Symbol == "USD") continue;
-            var exchangeRate = priceUSD / double.Parse(d.RateUsd, CultureInfo.InvariantCulture);
-            symbolToPrice.Add(d.Symbol.ToLower(), exchangeRate);
-        }
-
-        return symbolToPrice.ToImmutableDictionary();
+        return GenerateRatesFrom(dto.Data, priceUSD);
     }
 
-    public override Task<string?> SearchAsync(string query)
+    private static ImmutableDictionary<string, double> GenerateRatesFrom(IEnumerable<RatesData> data, double toUsd) => 
+        data.Where(d => d.Symbol != "USD")
+            .Select(d =>
+                {
+                    var exchangeRate = toUsd / double.Parse(d.RateUsd, CultureInfo.InvariantCulture);
+                    return new KeyValuePair<string,double>(d.Symbol.ToLower(), exchangeRate);
+                }
+            ).ToImmutableDictionary();
+
+    public override async Task<string?> SearchAsync(string query)
     {
-        // var dto = await GetDTO<DTO<IEnumerable<CurrencyData>>>()
-        throw new NotImplementedException();
+        var dto = await GetDTO<DTO<IEnumerable<CurrencyData>>>(AssetsDataRequestURL);
+        return dto.Data.Where(d => d.Symbol.Contains(query, StringComparison.InvariantCultureIgnoreCase)
+                                   || d.Name.Contains(query, StringComparison.InvariantCultureIgnoreCase) ||
+                                   d.Id.Contains(query, StringComparison.InvariantCultureIgnoreCase))
+            .Select(x => x.Id).FirstOrDefault();
     }
 
     public override Task<IImmutableList<string>> GetTop10Async()
