@@ -20,7 +20,7 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
     {
         var dto = await GetDTO<DTO.CoinCap.Rates.DTO>(ExchangeRatesRequestURL);
         var priceUSD = currency.SymbolToPrice["usd"];
-        var symbolToPrice = new Dictionary<string, double>();
+        var symbolToPrice = new Dictionary<string, double>(currency.SymbolToPrice);
         foreach (var d in dto.Data)
         {
             if (d.Symbol == "USD") continue;
