@@ -1,7 +1,6 @@
 ﻿namespace WhatTheCoins.API;
 
-public sealed record Candle
-(
+public sealed record Candle(
     DateTime DateTime,
     double Open,
     double High,

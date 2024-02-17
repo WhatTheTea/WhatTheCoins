@@ -21,15 +21,19 @@ internal record CurrencyData(
     string ChangePercent24Hr
 ) : CurrencyDTO
 {
-    internal override API.Currency ToCurrency() => new(
-        Id: Id.ToLower(),
-        Symbol: Symbol.ToLower(),
-        Volume: ConvertToDouble(VolumeUsd24Hr),
-        PriceChange: ConvertToDouble(ChangePercent24Hr),
-        SymbolToPrice:new Dictionary<string, double> {
-            {Symbol.ToLower(), 1},
-            {"usd", ConvertToDouble(PriceUsd)}
-        }.ToImmutableDictionary(), 
-        MarketPlaces:BuildMarketPlaces(Id)
-    );
+    internal override Currency ToCurrency()
+    {
+        return new Currency(
+            Id.ToLower(),
+            Symbol.ToLower(),
+            ConvertToDouble(VolumeUsd24Hr),
+            ConvertToDouble(ChangePercent24Hr),
+            new Dictionary<string, double>
+            {
+                { Symbol.ToLower(), 1 },
+                { "usd", ConvertToDouble(PriceUsd) }
+            }.ToImmutableDictionary(),
+            BuildMarketPlaces(Id)
+        );
+    }
 }

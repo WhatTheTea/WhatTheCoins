@@ -6,7 +6,6 @@ namespace WhatTheCoins.Tests;
 [TestOf(typeof(CurrencyService))]
 public class CurrencyServiceTest
 {
-
     [Test]
     public async Task SearchIdeal()
     {

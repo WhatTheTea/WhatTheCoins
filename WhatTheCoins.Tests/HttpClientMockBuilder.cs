@@ -7,9 +7,9 @@ namespace WhatTheCoins.Tests;
 public class HttpClientMockBuilder
 {
     public const string Any = "*";
-    private Dictionary<string, HttpResponseMessage> _messages = new();
-    private Mock<HttpMessageHandler> _messageHandler = new();
-    
+    private readonly Mock<HttpMessageHandler> _messageHandler = new();
+    private readonly Dictionary<string, HttpResponseMessage> _messages = new();
+
     public HttpClientMockBuilder AddMessage(string request, string response)
     {
         var httpResponse = new HttpResponseMessage
@@ -27,12 +27,15 @@ public class HttpClientMockBuilder
         var specificMessage = (HttpRequestMessage m, CancellationToken c) =>
             _messages[m.RequestUri!.ToString()];
         var anyMessage = (HttpRequestMessage m, CancellationToken _) => _messages[Any];
-        
+
         _messageHandler.Protected()
             .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(),
                 ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync(any ? anyMessage : specificMessage);
     }
 
-    public HttpClient Build() => new(_messageHandler.Object);
+    public HttpClient Build()
+    {
+        return new HttpClient(_messageHandler.Object);
+    }
 }
