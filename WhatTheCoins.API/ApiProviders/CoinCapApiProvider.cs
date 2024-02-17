@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Globalization;
+using WhatTheCoins.API.DTO.CoinCap;
 
 namespace WhatTheCoins.API.ApiProviders;
 
@@ -8,31 +9,41 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
     private const string CurrencyDataRequestURL = "https://api.coincap.io/v2/assets/{0}";
     private const string AssetsDataRequestURL = "https://api.coincap.io/v2/assets";
     private const string ExchangeRatesRequestURL = "https://api.coincap.io/v2/rates";
-    private const string CandlesDataRequestURL = "https://api.coincap.io/v2/candles?exchange=poloniex&interval={hours}&baseId={base}&quoteId={quote}";
+
+    private const string CandlesDataRequestURL =
+        "https://api.coincap.io/v2/candles?exchange=poloniex&interval={hours}&baseId={base}&quoteId={quote}";
+
     public override async Task<Currency> GetByIdAsync(string id)
     {
-        var dto = await GetDTO<DTO.CoinCap.Currency.DTO>(string.Format(CurrencyDataRequestURL, id));
-        var currency = dto.ToCurrency();
-        currency = currency with { SymbolToPrice = await GetExchangeRatesFor(currency)};
+        var dto = await GetDTO<DTO<CurrencyData>>(string.Format(CurrencyDataRequestURL, id));
+        var currency = dto.Data.ToCurrency();
+        currency = currency with { SymbolToPrice = await GetExchangeRatesFor(currency) };
         return currency;
     }
-    private async Task<IImmutableDictionary<string, double>> GetExchangeRatesFor(Currency currency)
+
+    private async Task<ImmutableDictionary<string, double>> GetExchangeRatesFor(Currency currency)
     {
-        var dto = await GetDTO<DTO.CoinCap.Rates.DTO>(ExchangeRatesRequestURL);
+        var dto = await GetDTO<DTO<IEnumerable<RatesData>>>(ExchangeRatesRequestURL);
         var priceUSD = currency.SymbolToPrice["usd"];
-        var symbolToPrice = new Dictionary<string, double>(currency.SymbolToPrice);
-        foreach (var d in dto.Data)
-        {
-            if (d.Symbol == "USD") continue;
-            var exchangeRate = priceUSD / double.Parse(d.RateUsd, CultureInfo.InvariantCulture);
-            symbolToPrice.Add(d.Symbol.ToLower(), exchangeRate);
-        }
-        return symbolToPrice.ToImmutableDictionary();
+        return GenerateRatesFrom(dto.Data, priceUSD);
     }
 
-    public override Task<string?> SearchAsync(string query)
+    private static ImmutableDictionary<string, double> GenerateRatesFrom(IEnumerable<RatesData> data, double toUsd) => 
+        data.Where(d => d.Symbol != "USD")
+            .Select(d =>
+                {
+                    var exchangeRate = toUsd / double.Parse(d.RateUsd, CultureInfo.InvariantCulture);
+                    return new KeyValuePair<string,double>(d.Symbol.ToLower(), exchangeRate);
+                }
+            ).ToImmutableDictionary();
+
+    public override async Task<string?> SearchAsync(string query)
     {
-        throw new NotImplementedException();
+        var dto = await GetDTO<DTO<IEnumerable<CurrencyData>>>(AssetsDataRequestURL);
+        return dto.Data.Where(d => d.Symbol.Contains(query, StringComparison.InvariantCultureIgnoreCase)
+                                   || d.Name.Contains(query, StringComparison.InvariantCultureIgnoreCase) ||
+                                   d.Id.Contains(query, StringComparison.InvariantCultureIgnoreCase))
+            .Select(x => x.Id).FirstOrDefault();
     }
 
     public override Task<IImmutableList<string>> GetTop10Async()

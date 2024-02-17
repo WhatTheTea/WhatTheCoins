@@ -6,16 +6,17 @@ namespace WhatTheCoins.Tests;
 
 public static class ExpectedData
 {
+    public const string ExpectedSearchResultBTC = "bitcoin";
+
     public static readonly Currency ExpectedCurrency = new(
-        Id: "bitcoin",
-        Symbol: "btc",
+        "bitcoin",
+        "btc",
         PriceChange: -2.72424,
         Volume: 33970260124,
         SymbolToPrice: new Dictionary<string, double>
         {
             { "btc", 1d },
             { "usd", 49418 }
-
         }.ToImmutableDictionary(),
         MarketPlaces: new HashSet<string>
         {
@@ -35,7 +36,11 @@ public static class ExpectedData
             44318, 44692, 44318, 44600)
     ];
 
-    public const string ExpectedSearchResultBTC = "bitcoin";
+    public static readonly string[] ExpectedCoins =
+    [
+        "bitcoin", "ethereum", "tether", "binancecoin", "solana", "ripple", "usd-coin", "staked-ether", "cardano",
+        "avalanche-2"
+    ];
 
     public static IApiProvider ExpectedProvider
     {
@@ -53,17 +58,19 @@ public static class ExpectedData
         }
     }
 
-    public static IApiProvider GetExpectedProvider(Dictionary<string,string> paramToReturn)
+    public static Dictionary<string, string> Top10ParamToReturn => ExpectedCoins.ToDictionary(s => s);
+
+    public static IApiProvider GetExpectedProvider(Dictionary<string, string> paramToReturn)
     {
         var idealProvider = new Mock<IApiProvider>();
         idealProvider.Setup(provider => provider.GetByIdAsync(It.IsAny<string>()))
-            .ReturnsAsync((string arg) => 
+            .ReturnsAsync((string arg) =>
                 new Currency(paramToReturn[arg],
-                "",
-                default,
-                default,
-                new Dictionary<string, double>().ToImmutableDictionary(),
-                new ImmutableArray<string>()));
+                    "",
+                    default,
+                    default,
+                    new Dictionary<string, double>().ToImmutableDictionary(),
+                    new ImmutableArray<string>()));
         idealProvider.Setup(provider => provider.SearchAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency.Id);
         idealProvider.Setup(provider => provider.GetCandles(It.IsAny<string>(),
                 It.IsAny<int>(),
@@ -72,12 +79,4 @@ public static class ExpectedData
         idealProvider.Setup(provider => provider.GetTop10Async()).ReturnsAsync(ExpectedCoins.ToImmutableArray());
         return idealProvider.Object;
     }
-
-    public static readonly string[] ExpectedCoins =
-    [
-        "bitcoin", "ethereum", "tether", "binancecoin", "solana", "ripple", "usd-coin", "staked-ether", "cardano",
-        "avalanche-2"
-    ];
-
-    public static Dictionary<string, string> Top10ParamToReturn => ExpectedCoins.ToDictionary(s => s);
 }

@@ -19,10 +19,7 @@ internal record DTO(
     MarketData MarketData
 ) : CurrencyDTO
 {
-    internal override API.Currency ToCurrency()
-    {
-        return new API.Currency(Id, Symbol, MarketData.TotalVolume["usd"],
+    internal override API.Currency ToCurrency() => new(Id, Symbol, MarketData.TotalVolume["usd"],
             MarketData.PriceChange24h ?? 0, MarketData.CurrentPrice.ToImmutableDictionary(),
             BuildMarketPlaces(Id));
-    }
 }

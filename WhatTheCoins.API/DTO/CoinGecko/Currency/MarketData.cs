@@ -3,7 +3,10 @@
 namespace WhatTheCoins.API.DTO.CoinGecko.Currency;
 
 internal record MarketData(
-    [property: JsonPropertyName("current_price")] Dictionary<string, double> CurrentPrice,
-    [property: JsonPropertyName("total_volume")] Dictionary<string, long> TotalVolume,
-    [property: JsonPropertyName("price_change_percentage_24h")] double? PriceChange24h
+    [property: JsonPropertyName("current_price")]
+    Dictionary<string, double> CurrentPrice,
+    [property: JsonPropertyName("total_volume")]
+    Dictionary<string, long> TotalVolume,
+    [property: JsonPropertyName("price_change_percentage_24h")]
+    double? PriceChange24h
 );

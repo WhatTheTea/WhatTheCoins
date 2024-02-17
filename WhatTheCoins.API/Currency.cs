@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using WhatTheCoins.API.ApiProviders;
 
 namespace WhatTheCoins.API;
 
