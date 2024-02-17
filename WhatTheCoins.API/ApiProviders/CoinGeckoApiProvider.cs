@@ -12,8 +12,7 @@ public class CoinGeckoApiProvider(HttpClient httpClient) : ApiProviderBase(httpC
     public override async Task<Currency> GetByIdAsync(string id)
     {
         // TODO: Own exceptions
-        var dto = await GetDTO<DTO.CoinGecko.Currency.DTO>(string.Format(CurrencyDataRequestURL, id)) ??
-                  throw new Exception("id not found on CoinGecko");
+        var dto = await GetDTO<DTO.CoinGecko.Currency.DTO>(string.Format(CurrencyDataRequestURL, id));
         return dto.ToCurrency();
     }
     public override async Task<string?> SearchAsync(string query)

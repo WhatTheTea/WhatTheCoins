@@ -10,11 +10,13 @@ public abstract class ApiProviderBase(HttpClient httpClient) : IApiProvider
     public abstract Task<IImmutableList<string>> GetTop10Async();
     public abstract Task<IImmutableList<Candle>> GetCandles(string id, int days = 7, string referenceCurrency = "usd");
 
-    protected virtual async Task<T?> GetDTO<T>(string requestURL)
+    protected async Task<T> GetDTO<T>(string requestURL)
     {
         var request = await httpClient.GetAsync(string.Format(requestURL));
         var rawJSON = await request.Content.ReadAsStringAsync();
+        if (string.IsNullOrEmpty(requestURL)) throw new Exception("Request url is empty");
+        if (string.IsNullOrEmpty(rawJSON)) throw new Exception("Api returned empty string");
         var dto = JsonDocument.Parse(rawJSON).Deserialize<T>();
-        return dto;
+        return dto ?? throw new Exception("Id not found");
     }
 }
