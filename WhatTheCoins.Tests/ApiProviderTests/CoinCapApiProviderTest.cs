@@ -3,7 +3,7 @@ using WhatTheCoins.API;
 using WhatTheCoins.API.ApiProviders;
 
 namespace WhatTheCoins.Tests.ApiProviderTests;
-[TestFixture(typeof(CoinGeckoApiProvider))]
+[TestFixture(typeof(CoinCapApiProvider))]
 public class CoinCapApiProviderTest<TApiProvider> : ApiProviderTest<TApiProvider> where TApiProvider : IApiProvider
 {
     public override void SetUpFixture()
@@ -18,14 +18,10 @@ public class CoinCapApiProviderTest<TApiProvider> : ApiProviderTest<TApiProvider
     [Test]
     public override async Task GetByIdIdeal()
     {
-        var httpClient = new HttpClientMockBuilder()
+        base.HttpClient = new HttpClientMockBuilder()
             .AddMessage("https://api.coincap.io/v2/assets/bitcoin", GetIdResponse)
             .AddMessage("https://api.coincap.io/v2/rates", GetExchangesResponse)
             .Build();
-        var provider = new CoinCapApiProvider(httpClient);
-
-        var data = await provider.GetByIdAsync("bitcoin");
-
-        data.Should().BeEquivalentTo(ExpectedData.ExpectedCurrency);
+        await base.GetByIdIdeal();
     }
 }

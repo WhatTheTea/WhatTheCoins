@@ -14,14 +14,22 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     protected static string GetOHCLResponse = "";
     protected static string SearchResponse = "";
     protected static string Top10Response = "";
+    
+    protected HttpClient? HttpClient { get; set; }
 
+    [SetUp]
+    public void SetUp()
+    {
+        this.HttpClient = null;
+    }
+    
     [Test]
     public virtual async Task GetByIdIdeal()
     {
-        var httpClient = new HttpClientMockBuilder()
+        HttpClient = HttpClient ?? new HttpClientMockBuilder()
             .AddMessage(HttpClientMockBuilder.Any, GetIdResponse)
             .Build();
-        var provider = MakeApiProvider(httpClient);
+        var provider = MakeApiProvider(HttpClient);
 
         var data = await provider.GetByIdAsync("bitcoin");
 
@@ -31,10 +39,10 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     [Test]
     public virtual async Task GetCandlesIdeal()
     {
-        var httpClient = new HttpClientMockBuilder()
+        HttpClient = HttpClient ?? new HttpClientMockBuilder()
             .AddMessage(HttpClientMockBuilder.Any, GetOHCLResponse)
             .Build();
-        var provider = MakeApiProvider(httpClient);
+        var provider = MakeApiProvider(HttpClient);
 
         var data = await provider.GetCandles("bitcoin", 7, "usd");
 
@@ -44,10 +52,10 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     [Test]
     public virtual async Task SearchByCode()
     {
-        var httpClient = new HttpClientMockBuilder()
+        HttpClient = HttpClient ?? new HttpClientMockBuilder()
             .AddMessage(HttpClientMockBuilder.Any, SearchResponse)
             .Build();
-        var provider = MakeApiProvider(httpClient);
+        var provider = MakeApiProvider(HttpClient);
 
         var data = await provider.SearchAsync("btc");
 
@@ -57,10 +65,10 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     [Test]
     public virtual async Task Top10()
     {
-        var httpClient = new HttpClientMockBuilder()
+        HttpClient = HttpClient ?? new HttpClientMockBuilder()
             .AddMessage(HttpClientMockBuilder.Any, Top10Response)
             .Build();
-        var provider = MakeApiProvider(httpClient);
+        var provider = MakeApiProvider(HttpClient);
 
         var data = await provider.GetTop10Async();
 
