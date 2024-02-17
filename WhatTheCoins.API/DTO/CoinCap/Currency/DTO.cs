@@ -15,6 +15,7 @@ internal record DTO(
         Volume: ConvertToDouble(Data.VolumeUsd24Hr),
         PriceChange: ConvertToDouble(Data.ChangePercent24Hr),
         SymbolToPrice:new Dictionary<string, double> {
+            {Data.Id, 1},
             {"usd", ConvertToDouble(Data.PriceUsd)}
         }.ToImmutableDictionary(), 
         MarketPlaces:BuildMarketPlaces(Data.Id)

@@ -14,7 +14,9 @@ public abstract class ApiProviderBase(HttpClient httpClient) : IApiProvider
     {
         var request = await httpClient.GetAsync(string.Format(requestURL));
         var rawJSON = await request.Content.ReadAsStringAsync();
+        if (string.IsNullOrEmpty(requestURL)) throw new Exception("Request url is empty");
+        if (string.IsNullOrEmpty(rawJSON)) throw new Exception("Api returned empty string");
         var dto = JsonDocument.Parse(rawJSON).Deserialize<T>();
-        return dto ?? throw new Exception("id not found");
+        return dto ?? throw new Exception("Id not found");
     }
 }
