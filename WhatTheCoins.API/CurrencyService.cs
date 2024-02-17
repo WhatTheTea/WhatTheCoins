@@ -25,7 +25,7 @@ public class CurrencyService(IApiProvider apiProvider) : ICurrencyService
         return ApiProvider.GetByIdAsync(id);
     }
 
-    public async Task<Currency?> SearchAsync(string query)
+    public async Task<IImmutableList<Currency>> SearchAsync(string query)
     {
         var foundId = await ApiProvider.SearchAsync(query);
         // TODO: own exceptions

@@ -37,7 +37,7 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
                 }
             ).ToImmutableDictionary();
 
-    public override async Task<string?> SearchAsync(string query)
+    public override async Task<IImmutableList<string>> SearchAsync(string query)
     {
         var dto = await GetDTO<DTO<IEnumerable<CurrencyData>>>(AssetsDataRequestURL);
         return dto.Data.Where(d => d.Symbol.Contains(query, StringComparison.InvariantCultureIgnoreCase)
