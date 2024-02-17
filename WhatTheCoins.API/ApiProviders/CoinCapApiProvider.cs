@@ -43,7 +43,7 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
         return dto.Data.Where(d => d.Symbol.Contains(query, StringComparison.InvariantCultureIgnoreCase)
                                    || d.Name.Contains(query, StringComparison.InvariantCultureIgnoreCase) ||
                                    d.Id.Contains(query, StringComparison.InvariantCultureIgnoreCase))
-            .Select(x => x.Id).FirstOrDefault();
+            .Select(x => x.Id).ToImmutableArray();
     }
 
     public override Task<IImmutableList<string>> GetTop10Async()
