@@ -25,7 +25,7 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
     {
         var dto = await GetDTO<DTO<IEnumerable<RatesData>>>(ExchangeRatesRequestURL);
         var priceUSD = currency.SymbolToPrice["usd"];
-        return GenerateRatesFrom(dto.Data, priceUSD);
+        return GenerateRatesFrom(dto.Data, priceUSD).AddRange(currency.SymbolToPrice);
     }
 
     private static ImmutableDictionary<string, double> GenerateRatesFrom(IEnumerable<RatesData> data, double toUsd) => 
