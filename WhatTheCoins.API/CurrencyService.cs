@@ -25,12 +25,12 @@ public class CurrencyService(IApiProvider apiProvider) : ICurrencyService
         return ApiProvider.GetByIdAsync(id);
     }
 
-    public async Task<Currency?> SearchAsync(string query)
+    public async Task<IImmutableList<Currency>> SearchAsync(string query)
     {
-        var foundId = await ApiProvider.SearchAsync(query);
-        // TODO: own exceptions
-        if (string.IsNullOrWhiteSpace(foundId)) throw new Exception("Currency Id not found");
-        return await ApiProvider.GetByIdAsync(foundId);
+        var ids = await ApiProvider.SearchAsync(query);
+        var tasks = ids.Select(async id => await ApiProvider.GetByIdAsync(id));
+        var currencies = await Task.WhenAll(tasks);
+        return currencies.ToImmutableArray();
     }
 
     public async Task<IImmutableList<Currency>> GetTop10Async()
