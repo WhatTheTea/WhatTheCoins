@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Globalization;
+using WhatTheCoins.API.DTO.CoinCap;
 
 namespace WhatTheCoins.API.ApiProviders;
 
@@ -11,14 +12,14 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
     private const string CandlesDataRequestURL = "https://api.coincap.io/v2/candles?exchange=poloniex&interval={hours}&baseId={base}&quoteId={quote}";
     public override async Task<Currency> GetByIdAsync(string id)
     {
-        var dto = await GetDTO<DTO.CoinCap.Currency.DTO>(string.Format(CurrencyDataRequestURL, id));
-        var currency = dto.ToCurrency();
+        var dto = await GetDTO<DTO<CurrencyData>>(string.Format(CurrencyDataRequestURL, id));
+        var currency = dto.Data.ToCurrency();
         currency = currency with { SymbolToPrice = await GetExchangeRatesFor(currency)};
         return currency;
     }
     private async Task<IImmutableDictionary<string, double>> GetExchangeRatesFor(Currency currency)
     {
-        var dto = await GetDTO<DTO.CoinCap.Rates.DTO>(ExchangeRatesRequestURL);
+        var dto = await GetDTO<DTO<IEnumerable<RatesData>>>(ExchangeRatesRequestURL);
         var priceUSD = currency.SymbolToPrice["usd"];
         var symbolToPrice = new Dictionary<string, double>(currency.SymbolToPrice);
         foreach (var d in dto.Data)
