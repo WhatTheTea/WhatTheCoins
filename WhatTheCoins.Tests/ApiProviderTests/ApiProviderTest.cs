@@ -5,47 +5,61 @@ namespace WhatTheCoins.Tests.ApiProviderTests;
 [TestFixture]
 public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiProvider
 {
-    private static IApiProvider MakeApiProvider(HttpClient httpClient) =>
-        (TApiProvider)Activator.CreateInstance(typeof(TApiProvider), httpClient)!;
+    private static IApiProvider MakeApiProvider(HttpClient httpClient)
+    {
+        return (TApiProvider)Activator.CreateInstance(typeof(TApiProvider), httpClient)!;
+    }
 
     protected static string GetIdResponse = "";
     protected static string GetOHCLResponse = "";
     protected static string SearchResponse = "";
     protected static string Top10Response = "";
+
     [Test]
     public virtual async Task GetByIdIdeal()
     {
-        var httpClient = HttpClientMock.MockHttpClient(GetIdResponse);
+        var httpClient = new HttpClientMockBuilder()
+            .AddMessage(HttpClientMockBuilder.Any, GetIdResponse)
+            .Build();
         var provider = MakeApiProvider(httpClient);
-        
+
         var data = await provider.GetByIdAsync("bitcoin");
-        
+
         data.Should().BeEquivalentTo(ExpectedData.ExpectedCurrency);
     }
+
     [Test]
     public virtual async Task GetCandlesIdeal()
     {
-        var httpClient = HttpClientMock.MockHttpClient(GetOHCLResponse);
+        var httpClient = new HttpClientMockBuilder()
+            .AddMessage(HttpClientMockBuilder.Any, GetOHCLResponse)
+            .Build();
         var provider = MakeApiProvider(httpClient);
-        
+
         var data = await provider.GetCandles("bitcoin", 7, "usd");
 
         data.Should().BeEquivalentTo(ExpectedData.ExpectedCandles);
     }
+
     [Test]
     public virtual async Task SearchByCode()
     {
-        var httpClient = HttpClientMock.MockHttpClient(SearchResponse);
+        var httpClient = new HttpClientMockBuilder()
+            .AddMessage(HttpClientMockBuilder.Any, SearchResponse)
+            .Build();
         var provider = MakeApiProvider(httpClient);
-        
+
         var data = await provider.SearchAsync("btc");
 
         data.Should().BeEquivalentTo(ExpectedData.ExpectedSearchResultBTC);
     }
+
     [Test]
     public virtual async Task Top10()
     {
-        var httpClient = HttpClientMock.MockHttpClient(Top10Response);
+        var httpClient = new HttpClientMockBuilder()
+            .AddMessage(HttpClientMockBuilder.Any, Top10Response)
+            .Build();
         var provider = MakeApiProvider(httpClient);
 
         var data = await provider.GetTop10Async();

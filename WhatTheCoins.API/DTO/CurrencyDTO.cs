@@ -6,7 +6,7 @@ internal abstract record CurrencyDTO
 {
     internal abstract Currency ToCurrency();
 
-    private static readonly ImmutableArray<string> MarketPlacesURL =
+    protected static readonly ImmutableArray<string> MarketPlacesURL =
     [
         "https://www.coingecko.com/en/coins/{0}", "https://coincap.io/assets/{0}"
     ];
