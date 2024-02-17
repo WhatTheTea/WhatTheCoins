@@ -46,9 +46,10 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
             .Select(x => x.Id).ToImmutableArray();
     }
 
-    public override Task<IImmutableList<string>> GetTop10Async()
+    public override async Task<IImmutableList<string>> GetTop10Async()
     {
-        throw new NotImplementedException();
+        var dto = await GetDTO<DTO<IEnumerable<CurrencyData>>>(AssetsDataRequestURL+"?limit=10");
+        return dto.Data.Take(10).Select(d => d.Id).ToImmutableArray();
     }
 
     public override Task<IImmutableList<Candle>> GetCandles(string id, int days = 7, string referenceCurrency = "usd")
