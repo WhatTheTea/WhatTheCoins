@@ -23,6 +23,7 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
         var symbolToPrice = new Dictionary<string, double>();
         foreach (var d in dto.Data)
         {
+            if (d.Symbol == "USD") continue;
             var exchangeRate = priceUSD / double.Parse(d.RateUsd, CultureInfo.InvariantCulture);
             symbolToPrice.Add(d.Symbol.ToLower(), exchangeRate);
         }
