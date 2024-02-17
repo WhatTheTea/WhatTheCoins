@@ -14,7 +14,7 @@ public class CurrencyServiceTest
 
         var search = await service.SearchAsync("btc");
 
-        search.Should().BeEquivalentTo(ExpectedData.ExpectedCurrency);
+        search.Should().Contain(ExpectedData.ExpectedCurrency);
     }
 
     [Test]

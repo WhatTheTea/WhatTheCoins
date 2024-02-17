@@ -62,7 +62,7 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
 
         var data = await provider.SearchAsync("btc");
 
-        data.Should().BeEquivalentTo(ExpectedData.ExpectedSearchResultBTC);
+        data.Should().Contain(ExpectedData.ExpectedSearchResultBTC);
     }
 
     [Test]

@@ -48,7 +48,7 @@ public static class ExpectedData
         {
             var idealProvider = new Mock<IApiProvider>();
             idealProvider.Setup(provider => provider.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency);
-            idealProvider.Setup(provider => provider.SearchAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency.Id);
+            idealProvider.Setup(provider => provider.SearchAsync(It.IsAny<string>())).ReturnsAsync([ExpectedCurrency.Id]);
             idealProvider.Setup(provider => provider.GetCandles(It.IsAny<string>(),
                     It.IsAny<int>(),
                     It.IsAny<string>()))
@@ -59,7 +59,7 @@ public static class ExpectedData
     }
 
     public static Dictionary<string, string> Top10ParamToReturn => ExpectedCoins.ToDictionary(s => s);
-
+    // TODO: Make ApiProviderMockBuilder analogous to HttpClientMockBuilder
     public static IApiProvider GetExpectedProvider(Dictionary<string, string> paramToReturn)
     {
         var idealProvider = new Mock<IApiProvider>();
@@ -71,7 +71,7 @@ public static class ExpectedData
                     default,
                     new Dictionary<string, double>().ToImmutableDictionary(),
                     new ImmutableArray<string>()));
-        idealProvider.Setup(provider => provider.SearchAsync(It.IsAny<string>())).ReturnsAsync(ExpectedCurrency.Id);
+        idealProvider.Setup(provider => provider.SearchAsync(It.IsAny<string>())).ReturnsAsync([ExpectedCurrency.Id]);
         idealProvider.Setup(provider => provider.GetCandles(It.IsAny<string>(),
                 It.IsAny<int>(),
                 It.IsAny<string>()))
