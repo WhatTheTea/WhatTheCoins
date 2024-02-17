@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Globalization;
 
 namespace WhatTheCoins.API.DTO;
 
@@ -15,4 +16,6 @@ internal abstract record CurrencyDTO
     {
         return MarketPlacesURL.Select(s => string.Format(s, id)).ToImmutableArray();
     }
+
+    protected static double ConvertToDouble(string num) => double.Parse(num, CultureInfo.InvariantCulture);
 }

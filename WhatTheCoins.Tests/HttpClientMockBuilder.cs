@@ -25,7 +25,7 @@ public class HttpClientMockBuilder
     private void UpdateMessageHandlerMock(bool any)
     {
         var specificMessage = (HttpRequestMessage m, CancellationToken c) =>
-            _messages[m.Content!.ReadAsStringAsync(c).Result];
+            _messages[m.RequestUri!.ToString()];
         var anyMessage = (HttpRequestMessage m, CancellationToken _) => _messages[Any];
         
         _messageHandler.Protected()
