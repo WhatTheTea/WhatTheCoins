@@ -9,9 +9,8 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
     private const string CurrencyDataRequestURL = "https://api.coincap.io/v2/assets/{0}";
     private const string AssetsDataRequestURL = "https://api.coincap.io/v2/assets";
     private const string ExchangeRatesRequestURL = "https://api.coincap.io/v2/rates";
-
-    private const string CandlesDataRequestURL =
-        "https://api.coincap.io/v2/candles?exchange=poloniex&interval={hours}&baseId={base}&quoteId={quote}";
+    private const string CandlesDataRequestURL = 
+        "https://api.coincap.io/v2/candles?exchange=poloniex&interval=d{1}&baseId={0}&quoteId={2}";
 
     public override async Task<Currency> GetByIdAsync(string id)
     {
@@ -52,8 +51,12 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
         return dto.Data.Take(10).Select(d => d.Id).ToImmutableArray();
     }
 
-    public override Task<IImmutableList<Candle>> GetCandles(string id, int days = 7, string referenceCurrency = "usd")
+    public override async Task<IImmutableList<Candle>> GetCandles(string id, int days = 7, string referenceCurrency = "usd")
     {
-        throw new NotImplementedException();
+        var dto = await GetDTO<DTO<IEnumerable<CandleData>>>(string.Format(CandlesDataRequestURL,
+            id,
+            days,
+            referenceCurrency));
+        return dto.Data.Select(data => data.ToCandle()).ToImmutableArray();
     }
 }
