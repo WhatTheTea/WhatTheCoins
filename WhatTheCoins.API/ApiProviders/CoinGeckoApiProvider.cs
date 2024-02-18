@@ -4,7 +4,7 @@ using WhatTheCoins.API.DTO.CoinGecko;
 
 namespace WhatTheCoins.API.ApiProviders;
 
-public class CoinGeckoApiProvider(HttpClient httpClient) : ApiProviderBase(httpClient)
+public class CoinGeckoApiProvider(IHttpClientFactory httpClientFactory) : ApiProviderBase(httpClientFactory)
 {
     private const string CurrencyDataRequestURL = "https://api.coingecko.com/api/v3/coins/{0}";
 
