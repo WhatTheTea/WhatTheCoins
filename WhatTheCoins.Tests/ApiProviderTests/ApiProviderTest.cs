@@ -20,7 +20,7 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     }
 
     protected string GetIdResponse = "";
-    protected string GetOHCLResponse = "";
+    protected string GetCandlesResponse = "";
     protected string SearchResponse = "";
     protected string Top10Response = "";
 
@@ -43,7 +43,7 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     public virtual async Task GetCandlesIdeal()
     {
         HttpClient ??= new HttpClientMockBuilder()
-            .AddMessage(HttpClientMockBuilder.Any, GetOHCLResponse)
+            .AddMessage(HttpClientMockBuilder.Any, GetCandlesResponse)
             .Build();
         var provider = MakeApiProvider(HttpClient);
 
