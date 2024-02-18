@@ -1,4 +1,6 @@
 ﻿using System.Collections.Immutable;
+using System.Collections.ObjectModel;
+using WhatTheCoins.API.DTO.CoinGecko;
 
 namespace WhatTheCoins.API.ApiProviders;
 
@@ -37,20 +39,9 @@ public class CoinGeckoApiProvider(HttpClient httpClient) : ApiProviderBase(httpC
     public override async Task<IImmutableList<Candle>> GetCandles(string id, int days = 7,
         string referenceCurrency = "usd")
     {
-        var rawCandles = await GetDTO<ImmutableArray<ImmutableArray<double>>>(
-            string.Format(CandlesDataRequestURL,
-                id,
-                days,
-                referenceCurrency));
+        var rawCandles = await GetDTO<Collection<CandleDTO>>(
+            string.Format(CandlesDataRequestURL, id, days, referenceCurrency));
         // Unpack data to Candles
-        return rawCandles.Select(arr =>
-            new Candle(ConvertUnixToDateTime((long)arr[0]),
-                arr[1], arr[2], arr[3], arr[4])
-        ).ToImmutableArray();
-    }
-
-    private static DateTime ConvertUnixToDateTime(long ms)
-    {
-        return DateTimeOffset.FromUnixTimeMilliseconds(ms).DateTime;
+        return rawCandles.Select(candle => candle.ToCandle()).ToImmutableArray();
     }
 }
