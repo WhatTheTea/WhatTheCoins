@@ -11,7 +11,7 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
     private const string ExchangeRatesRequestURL = "https://api.coincap.io/v2/rates";
 
     private const string CandlesDataRequestURL =
-        "https://api.coincap.io/v2/candles?exchange=poloniex&interval={hours}&baseId={base}&quoteId={quote}";
+        "https://api.coincap.io/v2/candles?exchange=poloniex&interval=d{days}&baseId={base}&quoteId={quote}";
 
     public override async Task<Currency> GetByIdAsync(string id)
     {
