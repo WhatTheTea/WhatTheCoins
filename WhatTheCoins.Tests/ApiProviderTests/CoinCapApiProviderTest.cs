@@ -20,7 +20,7 @@ public class CoinCapApiProviderTest<TApiProvider> : ApiProviderTest<TApiProvider
     [Test]
     public override async Task GetByIdIdeal()
     {
-        HttpClient = new HttpClientMockBuilder()
+        HttpClientFactory = new HttpClientFactoryMockBuilder()
             .AddMessage("https://api.coincap.io/v2/assets/bitcoin", GetIdResponse)
             .AddMessage("https://api.coincap.io/v2/rates", GetExchangesResponse)
             .Build();
@@ -30,7 +30,7 @@ public class CoinCapApiProviderTest<TApiProvider> : ApiProviderTest<TApiProvider
     [Test]
     public override Task SearchByCode()
     {
-        HttpClient = new HttpClientMockBuilder()
+        HttpClientFactory = new HttpClientFactoryMockBuilder()
             .AddMessage("https://api.coincap.io/v2/assets", SearchResponse)
             .AddMessage("https://api.coincap.io/v2/assets/bitcoin", GetIdResponse)
             .Build();
