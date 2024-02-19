@@ -15,7 +15,6 @@ public static class ExpectedData
         Volume: 33970260124,
         SymbolToPrice: new Dictionary<string, double>
         {
-            { "btc", 1d },
             { "usd", 49418 }
         }.ToImmutableDictionary(),
         MarketPlaces: new HashSet<string>

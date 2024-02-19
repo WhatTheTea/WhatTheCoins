@@ -30,7 +30,6 @@ internal record CurrencyData(
             ConvertToDouble(ChangePercent24Hr),
             new Dictionary<string, double>
             {
-                { Symbol.ToLower(), 1 },
                 { "usd", ConvertToDouble(PriceUsd) }
             }.ToImmutableDictionary(),
             BuildMarketPlaces(Id)
