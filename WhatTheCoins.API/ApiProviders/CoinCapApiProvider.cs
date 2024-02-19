@@ -4,7 +4,7 @@ using WhatTheCoins.API.DTO.CoinCap;
 
 namespace WhatTheCoins.API.ApiProviders;
 
-public class CoinCapApiProvider(IHttpClientFactory httpClientFactory) : ApiProviderBase(httpClientFactory)
+public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpClient)
 {
     private const string CurrencyDataRequestURL = "https://api.coincap.io/v2/assets/{0}";
     private const string AssetsDataRequestURL = "https://api.coincap.io/v2/assets";

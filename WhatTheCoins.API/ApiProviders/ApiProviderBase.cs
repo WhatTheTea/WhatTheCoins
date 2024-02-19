@@ -3,9 +3,8 @@ using System.Text.Json;
 
 namespace WhatTheCoins.API.ApiProviders;
 
-public abstract class ApiProviderBase(IHttpClientFactory httpClientFactory) : IApiProvider
+public abstract class ApiProviderBase(HttpClient httpClient) : IApiProvider
 {
-    private readonly HttpClient _httpClient = httpClientFactory.CreateClient();
     public abstract Task<Currency> GetByIdAsync(string id);
     public abstract Task<IImmutableList<string>> SearchAsync(string query);
     public abstract Task<IImmutableList<string>> GetTop10Async();
@@ -13,7 +12,7 @@ public abstract class ApiProviderBase(IHttpClientFactory httpClientFactory) : IA
 
     protected async Task<T> GetDTO<T>(string requestURL)
     {
-        var request = await _httpClient.GetAsync(string.Format(requestURL));
+        var request = await httpClient.GetAsync(string.Format(requestURL));
         var rawJSON = await request.Content.ReadAsStringAsync();
         if (string.IsNullOrEmpty(requestURL)) throw new Exception("Request url is empty");
         if (string.IsNullOrEmpty(rawJSON)) throw new Exception("Api returned empty string");
