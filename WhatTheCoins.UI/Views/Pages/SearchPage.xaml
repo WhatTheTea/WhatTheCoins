@@ -8,8 +8,6 @@
       xmlns:vm="clr-namespace:WhatTheCoins.UI.ViewModels"
       xmlns:rx="http://reactiveui.net"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
-      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       mc:Ignorable="d"
       Title="SearchPage" Height="450" Width="800">
     

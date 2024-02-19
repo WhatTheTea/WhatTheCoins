@@ -3,6 +3,7 @@ using System.Windows.Interop;
 using ReactiveUI;
 using Splat;
 using WhatTheCoins.UI.ViewModels;
+using WhatTheCoins.UI.Views.Pages;
 using Wpf.Ui.Controls;
 
 namespace WhatTheCoins.UI.Views;
@@ -15,6 +16,10 @@ public partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
-        Loaded += (_, _) => Wpf.Ui.Appearance.SystemThemeWatcher.Watch(this, WindowBackdropType.Auto);
+        Loaded += (_, _) =>
+        {
+            Wpf.Ui.Appearance.SystemThemeWatcher.Watch(this, WindowBackdropType.Auto);
+            MainMenuNavigationView.Navigate(typeof(MainPage));
+        };
     }
 }

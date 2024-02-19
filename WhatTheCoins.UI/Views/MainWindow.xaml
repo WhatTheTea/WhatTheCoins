@@ -15,13 +15,21 @@
         <ui:NavigationView PaneDisplayMode="LeftFluent"
                            MinHeight="420"
                            Margin="10"
-                           IsPaneToggleVisible="False">
+                           IsPaneToggleVisible="False"
+                           x:Name="MainMenuNavigationView">
             <ui:NavigationView.PaneHeader><Border Margin="40"/></ui:NavigationView.PaneHeader>
             <ui:NavigationView.PaneFooter><Border Margin="40"/></ui:NavigationView.PaneFooter>
             <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem  TargetPageType="{x:Type p:MainPage}" 
+                                        Content="Home" 
+                                        Icon="{ui:SymbolIcon Home12}"
+                                        />
                 <ui:NavigationViewItem  TargetPageType="{x:Type p:SearchPage}" 
                                         Content="Search" 
                                         Icon="{ui:SymbolIcon Search12}"/>
+                <ui:NavigationViewItem  TargetPageType="{x:Type p:Top10Page}" 
+                                        Content="Top10" 
+                                        Icon="{ui:SymbolIcon AppsList24}"/>
             </ui:NavigationView.MenuItems>
         </ui:NavigationView>
     </StackPanel>

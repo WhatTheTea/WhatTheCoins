@@ -8,19 +8,18 @@ namespace WhatTheCoins.UI.ViewModels;
 
 public class SearchPageViewModel : ReactiveObject
 {
+    private readonly ObservableAsPropertyHelper<bool> _isAvailable;
+    private readonly ICurrencyService _currencyService;
+    private readonly ObservableAsPropertyHelper<IEnumerable<CurrencyViewModel>> _searchResults;
     private string _searchTerm;
     public string SearchTerm
     {
         get => _searchTerm;
         set => this.RaiseAndSetIfChanged(ref _searchTerm, value);
     }
-
-    private readonly ObservableAsPropertyHelper<IEnumerable<CurrencyViewModel>> _searchResults;
     public IEnumerable<CurrencyViewModel> SearchResults => _searchResults.Value;
-
-    private readonly ObservableAsPropertyHelper<bool> _isAvailable;
     public bool IsAvailable => _isAvailable.Value;
-    private readonly ICurrencyService _currencyService = (ICurrencyService)Locator.Current.GetService(typeof(ICurrencyService));
+    
 
     public SearchPageViewModel(ICurrencyService currencyService)
     {

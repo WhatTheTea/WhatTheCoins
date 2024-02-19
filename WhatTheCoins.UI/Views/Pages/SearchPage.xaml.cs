@@ -11,7 +11,7 @@ public partial class SearchPage
     public SearchPage()
     {
         InitializeComponent();
-        ViewModel = Locator.Current.GetService(typeof(SearchPageViewModel)) as SearchPageViewModel;
+        ViewModel = Locator.Current.GetService<SearchPageViewModel>();
         this.WhenActivated(disposableRegistration =>
         {
             this.OneWayBind(ViewModel, 
