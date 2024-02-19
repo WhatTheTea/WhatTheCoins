@@ -25,7 +25,8 @@ public partial class App
         InitIoC();
     }
     public IServiceProvider Container { get; private set; }
-    void InitIoC()
+
+    private void InitIoC()
     {
         var host = Host
             .CreateDefaultBuilder()
@@ -35,15 +36,12 @@ public partial class App
                 var resolver = Locator.CurrentMutable;
                 resolver.InitializeSplat();
                 resolver.InitializeReactiveUI();
-
-                // Configure our local services and access the host configuration
                 ConfigureServices(services);
             })
+            .ConfigureLogging(loggingBuilder =>
+            {})
             .UseEnvironment(Environments.Development)
             .Build();
-
-        // Since MS DI container is a different type,
-        // we need to re-register the built container with Splat again
         Container = host.Services;
         Container.UseMicrosoftDependencyResolver();
     }
