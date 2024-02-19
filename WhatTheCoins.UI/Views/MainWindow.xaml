@@ -14,11 +14,14 @@
     <StackPanel>
         <ui:NavigationView PaneDisplayMode="LeftFluent"
                            MinHeight="300"
-                           Margin="0"
-                           IsBackButtonVisible="Auto"
+                           Margin="10"
                            IsPaneToggleVisible="False">
+            <ui:NavigationView.PaneHeader><Border Margin="40"/></ui:NavigationView.PaneHeader>
+            <ui:NavigationView.PaneFooter><Border Margin="40"/></ui:NavigationView.PaneFooter>
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem  TargetPageType="{x:Type p:SearchPage}" Content="Search" Icon="{ui:SymbolIcon Search12}"/>
+                <ui:NavigationViewItem  TargetPageType="{x:Type p:SearchPage}" 
+                                        Content="Search" 
+                                        Icon="{ui:SymbolIcon Search12}"/>
             </ui:NavigationView.MenuItems>
         </ui:NavigationView>
     </StackPanel>

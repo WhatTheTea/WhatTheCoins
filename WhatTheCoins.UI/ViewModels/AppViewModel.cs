@@ -1,9 +1,4 @@
-﻿using System.Net.Http;
-using System.Reactive.Linq;
-using ReactiveUI;
-using Splat;
-using WhatTheCoins.API;
-using WhatTheCoins.API.ApiProviders;
+﻿using ReactiveUI;
 
 namespace WhatTheCoins.UI.ViewModels;
 
