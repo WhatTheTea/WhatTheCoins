@@ -24,7 +24,7 @@ public class AppViewModel : ReactiveObject
     public bool IsAvailable => _isAvailable.Value;
 
     private readonly ICurrencyService _currencyService =
-        new CurrencyService(Locator.Current.GetService<CoinGeckoApiProvider>()!);
+        new CurrencyService(Locator.Current.GetService<CoinCapApiProvider>()!);
 
     public AppViewModel()
     {
@@ -36,8 +36,6 @@ public class AppViewModel : ReactiveObject
             .SelectMany(SearchCurrencies)
             .ObserveOn(RxApp.MainThreadScheduler)
             .ToProperty(this, x => x.SearchResults);
-        
-        // Console.WriteLine(_searchResults.ThrownExceptions.);
     }
 
     private async Task<IEnumerable<CurrencyViewModel>> SearchCurrencies(string term, CancellationToken token)

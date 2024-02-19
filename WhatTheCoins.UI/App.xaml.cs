@@ -16,8 +16,9 @@ public partial class App
     public App()
     {
         Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
-        Locator.CurrentMutable.RegisterConstantAnd(new HttpClient(), typeof(HttpClient))
-            .RegisterConstantAnd(() => new CoinGeckoApiProvider(Locator.Current.GetService<HttpClient>() ?? throw new ArgumentNullException()))
-            .RegisterConstant(() => new CoinCapApiProvider(Locator.Current.GetService<HttpClient>() ?? throw new ArgumentNullException()));
+        Locator.CurrentMutable.RegisterConstant(new HttpClient(), typeof(HttpClient));
+        Locator.CurrentMutable.RegisterConstant(
+            new CoinGeckoApiProvider(Locator.Current.GetService<HttpClient>()!));
+        Locator.CurrentMutable.RegisterConstant(new CoinCapApiProvider(Locator.Current.GetService<HttpClient>()!));
     }
 }
