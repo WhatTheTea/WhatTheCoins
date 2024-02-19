@@ -1,6 +1,7 @@
 ﻿using System.Reactive.Disposables;
 using System.Windows.Controls;
 using ReactiveUI;
+using Splat;
 using WhatTheCoins.UI.ViewModels;
 
 namespace WhatTheCoins.UI.Views.Pages;
@@ -10,7 +11,7 @@ public partial class SearchPage
     public SearchPage()
     {
         InitializeComponent();
-        ViewModel = new SearchPageViewModel();
+        ViewModel = Locator.Current.GetService(typeof(SearchPageViewModel)) as SearchPageViewModel;
         this.WhenActivated(disposableRegistration =>
         {
             this.OneWayBind(ViewModel, 

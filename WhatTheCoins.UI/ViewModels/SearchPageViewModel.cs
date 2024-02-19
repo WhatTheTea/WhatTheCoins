@@ -20,12 +20,11 @@ public class SearchPageViewModel : ReactiveObject
 
     private readonly ObservableAsPropertyHelper<bool> _isAvailable;
     public bool IsAvailable => _isAvailable.Value;
+    private readonly ICurrencyService _currencyService = (ICurrencyService)Locator.Current.GetService(typeof(ICurrencyService));
 
-    private readonly ICurrencyService _currencyService =
-        new CurrencyService(Locator.Current.GetService<CoinCapApiProvider>()!);
-
-    public SearchPageViewModel()
+    public SearchPageViewModel(ICurrencyService currencyService)
     {
+        _currencyService = currencyService;
         _searchResults = this.WhenAnyValue(x => x.SearchTerm)
             .Throttle(TimeSpan.FromMilliseconds(800))
             .Select(term => term?.Trim())

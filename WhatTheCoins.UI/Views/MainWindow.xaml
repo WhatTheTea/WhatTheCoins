@@ -13,7 +13,7 @@
         mc:Ignorable="d">
     <StackPanel>
         <ui:NavigationView PaneDisplayMode="LeftFluent"
-                           MinHeight="300"
+                           MinHeight="420"
                            Margin="10"
                            IsPaneToggleVisible="False">
             <ui:NavigationView.PaneHeader><Border Margin="40"/></ui:NavigationView.PaneHeader>

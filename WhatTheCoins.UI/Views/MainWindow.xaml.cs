@@ -1,6 +1,9 @@
 ﻿using System.Reactive.Disposables;
+using System.Windows.Interop;
 using ReactiveUI;
+using Splat;
 using WhatTheCoins.UI.ViewModels;
+using Wpf.Ui.Controls;
 
 namespace WhatTheCoins.UI.Views;
 
@@ -12,8 +15,6 @@ public partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
-        ViewModel = new AppViewModel();
-
-        Loaded += (_, _) => Wpf.Ui.Appearance.SystemThemeWatcher.Watch(this);
+        Loaded += (_, _) => Wpf.Ui.Appearance.SystemThemeWatcher.Watch(this, WindowBackdropType.Auto);
     }
 }
