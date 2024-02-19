@@ -4,13 +4,13 @@ using Moq.Protected;
 
 namespace WhatTheCoins.Tests;
 
-public class HttpClientFactoryMockBuilder
+public class HttpClientMockBuilder
 {
     public const string Any = "*";
     private readonly Mock<HttpMessageHandler> _messageHandler = new();
     private readonly Dictionary<string, HttpResponseMessage> _messages = new();
 
-    public HttpClientFactoryMockBuilder AddMessage(string request, string response)
+    public HttpClientMockBuilder AddMessage(string request, string response)
     {
         var httpResponse = new HttpResponseMessage
         {
@@ -34,11 +34,8 @@ public class HttpClientFactoryMockBuilder
             .ReturnsAsync(any ? anyMessage : specificMessage);
     }
 
-    public IHttpClientFactory Build()
+    public HttpClient Build()
     {
-        var mock = new Mock<IHttpClientFactory>();
-        mock.Setup(f => f.CreateClient(It.IsAny<string>()))
-            .Returns(new HttpClient(_messageHandler.Object));
-        return mock.Object;
+        return new HttpClient(_messageHandler.Object);
     }
 }

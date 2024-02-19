@@ -8,15 +8,15 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     [SetUp]
     public void SetUp()
     {
-        HttpClientFactory = null;
+        HttpClient = null;
     }
 
     [OneTimeSetUp]
     public abstract void SetUpFixture();
 
-    private static IApiProvider MakeApiProvider(IHttpClientFactory httpClientFactory)
+    private static IApiProvider MakeApiProvider(HttpClient httpClient)
     {
-        return (TApiProvider)Activator.CreateInstance(typeof(TApiProvider), httpClientFactory)!;
+        return (TApiProvider)Activator.CreateInstance(typeof(TApiProvider), httpClient)!;
     }
 
     protected string GetIdResponse = "";
@@ -24,15 +24,15 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     protected string SearchResponse = "";
     protected string Top10Response = "";
 
-    protected IHttpClientFactory? HttpClientFactory { get; set; }
+    protected HttpClient? HttpClient { get; set; }
 
     [Test]
     public virtual async Task GetByIdIdeal()
     {
-        HttpClientFactory ??= new HttpClientFactoryMockBuilder()
-            .AddMessage(HttpClientFactoryMockBuilder.Any, GetIdResponse)
+        HttpClient ??= new HttpClientMockBuilder()
+            .AddMessage(HttpClientMockBuilder.Any, GetIdResponse)
             .Build();
-        var provider = MakeApiProvider(HttpClientFactory);
+        var provider = MakeApiProvider(HttpClient);
 
         var data = await provider.GetByIdAsync("bitcoin");
 
@@ -42,10 +42,10 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     [Test]
     public virtual async Task GetCandlesIdeal()
     {
-        HttpClientFactory ??= new HttpClientFactoryMockBuilder()
-            .AddMessage(HttpClientFactoryMockBuilder.Any, GetCandlesResponse)
+        HttpClient ??= new HttpClientMockBuilder()
+            .AddMessage(HttpClientMockBuilder.Any, GetCandlesResponse)
             .Build();
-        var provider = MakeApiProvider(HttpClientFactory);
+        var provider = MakeApiProvider(HttpClient);
 
         var data = await provider.GetCandles("bitcoin", 7, "usd");
 
@@ -55,10 +55,10 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     [Test]
     public virtual async Task SearchByCode()
     {
-        HttpClientFactory ??= new HttpClientFactoryMockBuilder()
-            .AddMessage(HttpClientFactoryMockBuilder.Any, SearchResponse)
+        HttpClient ??= new HttpClientMockBuilder()
+            .AddMessage(HttpClientMockBuilder.Any, SearchResponse)
             .Build();
-        var provider = MakeApiProvider(HttpClientFactory);
+        var provider = MakeApiProvider(HttpClient);
 
         var data = await provider.SearchAsync("btc");
 
@@ -68,10 +68,10 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
     [Test]
     public virtual async Task Top10()
     {
-        HttpClientFactory ??= new HttpClientFactoryMockBuilder()
-            .AddMessage(HttpClientFactoryMockBuilder.Any, Top10Response)
+        HttpClient ??= new HttpClientMockBuilder()
+            .AddMessage(HttpClientMockBuilder.Any, Top10Response)
             .Build();
-        var provider = MakeApiProvider(HttpClientFactory);
+        var provider = MakeApiProvider(HttpClient);
 
         var data = await provider.GetTop10Async();
 
