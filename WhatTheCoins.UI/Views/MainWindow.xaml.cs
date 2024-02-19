@@ -1,9 +1,8 @@
 ﻿using System.Reactive.Disposables;
-using System.Windows;
 using ReactiveUI;
 using WhatTheCoins.UI.ViewModels;
 
-namespace WhatTheCoins.UI;
+namespace WhatTheCoins.UI.Views;
 
 /// <summary>
 ///     Interaction logic for MainWindow.xaml
@@ -14,23 +13,7 @@ public partial class MainWindow
     {
         InitializeComponent();
         ViewModel = new AppViewModel();
-        
-        this.WhenActivated(disposableRegistration =>
-        {
-            this.OneWayBind(ViewModel, 
-                    viewModel => viewModel.IsAvailable, 
-                    view => view.SearchResultsListBox.Visibility)
-                .DisposeWith(disposableRegistration); 
-                
-            this.OneWayBind(ViewModel, 
-                    viewModel => viewModel.SearchResults, 
-                    view => view.SearchResultsListBox.ItemsSource)
-                .DisposeWith(disposableRegistration); 
-                
-            this.Bind(ViewModel, 
-                    viewModel => viewModel.SearchTerm, 
-                    view => view.SearchTextBox.Text)
-                .DisposeWith(disposableRegistration);
-        });
+
+        Loaded += (_, _) => Wpf.Ui.Appearance.SystemThemeWatcher.Watch(this);
     }
 }

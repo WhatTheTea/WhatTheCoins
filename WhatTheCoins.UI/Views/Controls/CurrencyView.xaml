@@ -1,0 +1,24 @@
+﻿<rx:ReactiveUserControl
+    x:Class="WhatTheCoins.UI.Views.Controls.CurrencyView"
+    xmlns:viewModels="clr-namespace:WhatTheCoins.UI.ViewModels"
+    x:TypeArguments="viewModels:CurrencyViewModel"
+    xmlns:rx="http://reactiveui.net"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" 
+                   Margin="6" VerticalAlignment="Center">
+            <Run FontSize="14" FontWeight="SemiBold" x:Name="CurrencyId"/>
+            <LineBreak />
+            <Run FontSize="12" x:Name="CurrencyPrice"/>
+            <LineBreak />
+            <Hyperlink x:Name="CurrencyMarket">Open</Hyperlink>
+        </TextBlock>
+    </Grid>
+</rx:ReactiveUserControl>
+

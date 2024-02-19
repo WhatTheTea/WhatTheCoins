@@ -14,6 +14,11 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+      <Page Update="Views\Controls\CurrencyView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
     </ItemGroup>
 
     <ItemGroup>
@@ -21,7 +26,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
       <PackageReference Include="ReactiveUI.WPF" Version="19.5.41" />
+      <PackageReference Include="WPF-UI" Version="3.0.0" />
     </ItemGroup>
 
 </Project>
