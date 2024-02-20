@@ -8,6 +8,6 @@
       xmlns:vm="clr-namespace:WhatTheCoins.UI.ViewModels.Pages"
       xmlns:rx="http://reactiveui.net"
       mc:Ignorable="d"
-      Title="Search" Height="450" Width="800">
+      Title="Search">
         <rx:RoutedViewHost x:Name="ViewHost"/>
 </rx:ReactivePage>
