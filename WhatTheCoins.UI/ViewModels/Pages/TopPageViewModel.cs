@@ -3,6 +3,7 @@ using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using WhatTheCoins.API;
+using WhatTheCoins.API.ApiProviders;
 using WhatTheCoins.UI.ViewModels.Controls;
 
 namespace WhatTheCoins.UI.ViewModels.Pages;
@@ -28,12 +29,12 @@ public class TopPageViewModel : ReactiveObject, IRoutableViewModel
 // TODO
     private async Task<IEnumerable<CurrencyViewModel>> GetTopCurrenciesAsync()
     {
-        var apiResponse = await _currencyService.GetTop10Async();
+        var apiResponse = await _currencyService.With<CoinGeckoApiProvider>().GetTopAsync();
         return await Task.WhenAll(apiResponse.Select(GetCurrencyViewModel));
     }
     private async Task<CurrencyViewModel> GetCurrencyViewModel(Currency currency)
     {
-        var candles = await _currencyService.GetCandles(currency.Id);
+        var candles = await _currencyService.With<CoinGeckoApiProvider>().GetCandles(currency.Id);
         return new CurrencyInfoViewModel(currency, candles, HostScreen);
     }
 // END 

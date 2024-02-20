@@ -23,7 +23,7 @@ public class CurrencyServiceTest
         var apiProvider = ExpectedData.GetExpectedProvider(ExpectedData.Top10ParamToReturn);
         var service = new CurrencyService(apiProvider);
 
-        var top10 = await service.GetTop10Async();
+        var top10 = await service.GetTopAsync();
         var top10Ids = top10.Select(currency => currency.Id);
 
         top10Ids.Should().ContainInOrder(ExpectedData.ExpectedCoins);

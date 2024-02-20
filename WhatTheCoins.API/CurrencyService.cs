@@ -33,9 +33,9 @@ public class CurrencyService(IApiProvider apiProvider) : ICurrencyService
         return currencies.ToImmutableArray();
     }
 
-    public async Task<IImmutableList<Currency>> GetTop10Async()
+    public async Task<IImmutableList<Currency>> GetTopAsync()
     {
-        var ids = await ApiProvider.GetTop10Async();
+        var ids = await ApiProvider.GetTopAsync();
         var currencies = await Task.WhenAll(ids.Select(async id => await GetByIdAsync(id)));
         return currencies.ToImmutableArray();
     }

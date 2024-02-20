@@ -13,6 +13,7 @@ public class CurrencyViewModel(Currency currency, IEnumerable<Candle> candles) :
     public Uri[] MarketUrls => currency.MarketPlaces.Select(s => new Uri(s)).ToArray();
     public string Id => currency.Id;
     public double Price => currency.SymbolToPrice["usd"];
+    // public  => currency
     
     
 }
