@@ -9,7 +9,8 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
     private const string CurrencyDataRequestURL = "https://api.coincap.io/v2/assets/{0}";
     private const string AssetsDataRequestURL = "https://api.coincap.io/v2/assets";
     private const string ExchangeRatesRequestURL = "https://api.coincap.io/v2/rates";
-    private const string CandlesDataRequestURL = 
+
+    private const string CandlesDataRequestURL =
         "https://api.coincap.io/v2/candles?exchange=poloniex&interval=d{1}&baseId={0}&quoteId={2}";
 
     public override async Task<Currency> GetByIdAsync(string id)
@@ -27,14 +28,16 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
         return GenerateRatesFrom(dto.Data, priceUSD).AddRange(currency.SymbolToPrice);
     }
 
-    private static ImmutableDictionary<string, double> GenerateRatesFrom(IEnumerable<RatesData> data, double toUsd) => 
-        data.Where(d => d.Symbol != "USD")
+    private static ImmutableDictionary<string, double> GenerateRatesFrom(IEnumerable<RatesData> data, double toUsd)
+    {
+        return data.Where(d => d.Symbol != "USD")
             .Select(d =>
                 {
                     var exchangeRate = toUsd / double.Parse(d.RateUsd, CultureInfo.InvariantCulture);
-                    return new KeyValuePair<string,double>(d.Symbol.ToLower(), exchangeRate);
+                    return new KeyValuePair<string, double>(d.Symbol.ToLower(), exchangeRate);
                 }
             ).ToImmutableDictionary();
+    }
 
     public override async Task<IImmutableList<string>> SearchAsync(string query)
     {
@@ -47,11 +50,12 @@ public class CoinCapApiProvider(HttpClient httpClient) : ApiProviderBase(httpCli
 
     public override async Task<IImmutableList<string>> GetTop10Async()
     {
-        var dto = await GetDTO<DTO<IEnumerable<CurrencyData>>>(AssetsDataRequestURL+"?limit=10");
+        var dto = await GetDTO<DTO<IEnumerable<CurrencyData>>>(AssetsDataRequestURL + "?limit=10");
         return dto.Data.Take(10).Select(d => d.Id).ToImmutableArray();
     }
 
-    public override async Task<IImmutableList<Candle>> GetCandles(string id, int days = 7, string referenceCurrency = "usd")
+    public override async Task<IImmutableList<Candle>> GetCandles(string id, int days = 7,
+        string referenceCurrency = "usd")
     {
         var dto = await GetDTO<DTO<IEnumerable<CandleData>>>(string.Format(CandlesDataRequestURL,
             id,

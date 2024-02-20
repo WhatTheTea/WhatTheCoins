@@ -1,11 +1,8 @@
-﻿using System.ComponentModel;
-using System.Net.Http;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using ReactiveUI;
 using Splat;
-using Microsoft.Extensions.Hosting;
 using Splat.Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using WhatTheCoins.API;
 using WhatTheCoins.API.ApiProviders;
 using WhatTheCoins.UI.ViewModels;
@@ -24,7 +21,8 @@ public partial class App
     {
         InitIoC();
     }
-    public IServiceProvider Container { get; private set; }
+
+    private IServiceProvider Container { get; set; }
 
     private void InitIoC()
     {
@@ -38,25 +36,23 @@ public partial class App
                 resolver.InitializeReactiveUI();
                 ConfigureServices(services);
             })
-            .ConfigureLogging(loggingBuilder =>
-            {})
             .UseEnvironment(Environments.Development)
             .Build();
         Container = host.Services;
         Container.UseMicrosoftDependencyResolver();
     }
 
-    private void ConfigureServices(IServiceCollection services)
+    private static void ConfigureServices(IServiceCollection services)
     {
         services.AddHttpClient()
             .AddSingleton<ICurrencyService, CurrencyService>()
             .AddSingleton<IApiProvider, CoinCapApiProvider>();
 
-        services.AddSingleton<AppViewModel>()
+        services.AddSingleton<MainWindowViewModel>()
             .AddTransient<SearchPageViewModel>()
             .AddTransient<TopPageViewModel>();
 
-        services.AddSingleton<IViewFor<AppViewModel>, MainWindow>()
+        services.AddSingleton<IViewFor<MainWindowViewModel>, MainWindow>()
             .AddTransient<IViewFor<SearchPageViewModel>, SearchPage>()
             .AddTransient<IViewFor<CurrencyViewModel>, CurrencyView>()
             .AddTransient<IViewFor<TopPageViewModel>, Top10Page>();

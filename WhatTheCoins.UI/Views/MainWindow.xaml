@@ -1,35 +1,38 @@
 ﻿<rx:ReactiveWindow x:Class="WhatTheCoins.UI.Views.MainWindow"
-        x:TypeArguments="vm:AppViewModel"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:WhatTheCoins.UI.ViewModels"
-        xmlns:p="clr-namespace:WhatTheCoins.UI.Views.Pages"
-        xmlns:rx="http://reactiveui.net"
-        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        Title="WhatTheCoins" Height="450" Width="800"
-        
-        mc:Ignorable="d">
+                   x:TypeArguments="vm:MainWindowViewModel"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:vm="clr-namespace:WhatTheCoins.UI.ViewModels"
+                   xmlns:p="clr-namespace:WhatTheCoins.UI.Views.Pages"
+                   xmlns:rx="http://reactiveui.net"
+                   xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                   Title="WhatTheCoins" Height="450" Width="600"
+
+                   mc:Ignorable="d">
     <StackPanel>
         <ui:NavigationView PaneDisplayMode="LeftFluent"
                            MinHeight="420"
                            Margin="10"
                            IsPaneToggleVisible="False"
                            x:Name="MainMenuNavigationView">
-            <ui:NavigationView.PaneHeader><Border Margin="40"/></ui:NavigationView.PaneHeader>
-            <ui:NavigationView.PaneFooter><Border Margin="40"/></ui:NavigationView.PaneFooter>
+            <ui:NavigationView.PaneHeader>
+                <Border Margin="40" />
+            </ui:NavigationView.PaneHeader>
+            <ui:NavigationView.PaneFooter>
+                <Border Margin="40" />
+            </ui:NavigationView.PaneFooter>
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem  TargetPageType="{x:Type p:MainPage}" 
-                                        Content="Home" 
-                                        Icon="{ui:SymbolIcon Home12}"
-                                        />
-                <ui:NavigationViewItem  TargetPageType="{x:Type p:SearchPage}" 
-                                        Content="Search" 
-                                        Icon="{ui:SymbolIcon Search12}"/>
-                <ui:NavigationViewItem  TargetPageType="{x:Type p:Top10Page}" 
-                                        Content="Top10" 
-                                        Icon="{ui:SymbolIcon AppsList24}"/>
+                <ui:NavigationViewItem TargetPageType="{x:Type p:MainPage}"
+                                       Content="Home"
+                                       Icon="{ui:SymbolIcon Home12}" />
+                <ui:NavigationViewItem TargetPageType="{x:Type p:SearchPage}"
+                                       Content="Search"
+                                       Icon="{ui:SymbolIcon Search12}" />
+                <ui:NavigationViewItem TargetPageType="{x:Type p:Top10Page}"
+                                       Content="Top10"
+                                       Icon="{ui:SymbolIcon AppsList24}" />
             </ui:NavigationView.MenuItems>
         </ui:NavigationView>
     </StackPanel>

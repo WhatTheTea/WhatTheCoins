@@ -12,10 +12,13 @@ internal record CandleData(
     [property: JsonPropertyName("period")] long Period
 ) : ICandleDTO
 {
-    public Candle ToCandle() => new(DateTimeOffset.FromUnixTimeMilliseconds(Period).DateTime,
-        double.Parse(Open, CultureInfo.InvariantCulture),
-        double.Parse(High, CultureInfo.InvariantCulture),
-        double.Parse(Low, CultureInfo.InvariantCulture),
-        double.Parse(Close, CultureInfo.InvariantCulture)
+    public Candle ToCandle()
+    {
+        return new Candle(DateTimeOffset.FromUnixTimeMilliseconds(Period).DateTime,
+            double.Parse(Open, CultureInfo.InvariantCulture),
+            double.Parse(High, CultureInfo.InvariantCulture),
+            double.Parse(Low, CultureInfo.InvariantCulture),
+            double.Parse(Close, CultureInfo.InvariantCulture)
         );
+    }
 }
