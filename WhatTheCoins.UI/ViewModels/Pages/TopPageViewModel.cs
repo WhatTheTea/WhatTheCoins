@@ -3,8 +3,9 @@ using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using WhatTheCoins.API;
+using WhatTheCoins.UI.ViewModels.Controls;
 
-namespace WhatTheCoins.UI.ViewModels;
+namespace WhatTheCoins.UI.ViewModels.Pages;
 
 public class TopPageViewModel : ReactiveObject
 {

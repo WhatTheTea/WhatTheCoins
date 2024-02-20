@@ -1,10 +1,12 @@
-﻿using System.Reactive.Linq;
+﻿using System.Diagnostics;
+using System.Reactive.Linq;
 using ReactiveUI;
+using Splat;
 using WhatTheCoins.API;
 
-namespace WhatTheCoins.UI.ViewModels;
+namespace WhatTheCoins.UI.ViewModels.Controls;
 
-public class SearchPageViewModel : ReactiveObject
+public class SearchViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly ICurrencyService _currencyService;
     private readonly ObservableAsPropertyHelper<bool> _isAvailable;
@@ -12,12 +14,13 @@ public class SearchPageViewModel : ReactiveObject
     private string _searchTerm;
 
 
-    public SearchPageViewModel(ICurrencyService currencyService)
+    public SearchViewModel(ICurrencyService currencyService, IScreen? hostScreen = null)
     {
         _currencyService = currencyService;
+        HostScreen = hostScreen;
         _searchResults = this.WhenAnyValue(x => x.SearchTerm)
             .Throttle(TimeSpan.FromMilliseconds(800))
-            .Select(term => term.Trim())
+            .Select(term => term?.Trim())
             .DistinctUntilChanged()
             .Where(term => !string.IsNullOrWhiteSpace(term))
             .SelectMany(SearchCurrenciesAsync)
@@ -39,4 +42,7 @@ public class SearchPageViewModel : ReactiveObject
         var apiResponse = await _currencyService.SearchAsync(term);
         return apiResponse.Select(c => new CurrencyViewModel(c));
     }
+
+    public string? UrlPathSegment => "search";
+    public IScreen HostScreen { get; }
 }

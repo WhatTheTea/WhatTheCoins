@@ -1,5 +1,5 @@
-﻿<rx:ReactivePage x:Class="WhatTheCoins.UI.Views.Pages.SearchPage"
-                 x:TypeArguments="vm:SearchPageViewModel"
+﻿<rx:ReactiveUserControl x:Class="WhatTheCoins.UI.Views.Controls.SearchView"
+                 x:TypeArguments="controls:SearchViewModel"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,8 +7,9 @@
                  xmlns:vm="clr-namespace:WhatTheCoins.UI.ViewModels"
                  xmlns:rx="http://reactiveui.net"
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:controls="clr-namespace:WhatTheCoins.UI.ViewModels.Controls"
                  mc:Ignorable="d"
-                 Title="SearchPage" Height="450" Width="800">
+                 Height="450" Width="800">
 
     <Grid Margin="12">
         <Grid.ColumnDefinitions>
@@ -26,4 +27,4 @@
                  Grid.Row="1" Margin="0,6,0,0" HorizontalContentAlignment="Stretch"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
     </Grid>
-</rx:ReactivePage>
+</rx:ReactiveUserControl>

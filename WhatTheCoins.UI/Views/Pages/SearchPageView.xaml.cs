@@ -1,25 +1,24 @@
 ﻿using System.Reactive.Disposables;
+using System.Windows.Controls;
 using ReactiveUI;
 using Splat;
-using WhatTheCoins.UI.ViewModels;
 using WhatTheCoins.UI.ViewModels.Pages;
 
 namespace WhatTheCoins.UI.Views.Pages;
 
-public partial class Top10Page
+public partial class SearchPageView
 {
-    public Top10Page()
+    public SearchPageView()
     {
         InitializeComponent();
-        ViewModel = Locator.Current.GetService<TopPageViewModel>()!;
-
+        ViewModel ??= Locator.Current.GetService<SearchPageViewModel>();
         this.WhenActivated(disposable =>
             {
                 this.OneWayBind(ViewModel,
-                        vm => vm.TopCurrencies,
-                        page => page.TopListBox.ItemsSource)
+                        x => x.Router,
+                        x => x.ViewHost.Router)
                     .DisposeWith(disposable);
             }
-        );
+            );
     }
 }

@@ -3,7 +3,7 @@ using System.Reactive;
 using ReactiveUI;
 using WhatTheCoins.API;
 
-namespace WhatTheCoins.UI.ViewModels;
+namespace WhatTheCoins.UI.ViewModels.Controls;
 
 public class CurrencyViewModel : ReactiveObject
 {

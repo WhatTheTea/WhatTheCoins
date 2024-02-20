@@ -8,6 +8,7 @@
                    xmlns:p="clr-namespace:WhatTheCoins.UI.Views.Pages"
                    xmlns:rx="http://reactiveui.net"
                    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                   xmlns:controls="clr-namespace:WhatTheCoins.UI.Views.Controls"
                    Title="WhatTheCoins" Height="450" Width="600"
 
                    mc:Ignorable="d">
@@ -27,7 +28,7 @@
                 <ui:NavigationViewItem TargetPageType="{x:Type p:MainPage}"
                                        Content="Home"
                                        Icon="{ui:SymbolIcon Home12}" />
-                <ui:NavigationViewItem TargetPageType="{x:Type p:SearchPage}"
+                <ui:NavigationViewItem TargetPageType="{x:Type p:SearchPageView}"
                                        Content="Search"
                                        Icon="{ui:SymbolIcon Search12}" />
                 <ui:NavigationViewItem TargetPageType="{x:Type p:Top10Page}"
