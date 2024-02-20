@@ -12,10 +12,9 @@ public abstract class ApiProviderBase(HttpClient httpClient) : IApiProvider
 
     protected async Task<T> GetDTO<T>(string requestURL)
     {
-        var request = await httpClient.GetAsync(string.Format(requestURL));
-        var rawJSON = await request.Content.ReadAsStringAsync();
         if (string.IsNullOrEmpty(requestURL)) throw new Exception("Request url is empty");
-        if (string.IsNullOrEmpty(rawJSON)) throw new Exception("Api returned empty string");
+        var request = await httpClient.GetAsync(requestURL);
+        var rawJSON = await request.Content.ReadAsStringAsync();
         var dto = JsonDocument.Parse(rawJSON).Deserialize<T>();
         return dto ?? throw new Exception("Id not found");
     }
