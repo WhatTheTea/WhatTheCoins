@@ -1,9 +1,6 @@
-﻿using System.Diagnostics;
-using System.Net.Http;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Splat;
 using WhatTheCoins.API;
 using WhatTheCoins.API.ApiProviders;
 
@@ -29,11 +26,14 @@ public class SearchViewModel : ReactiveObject, IRoutableViewModel
             .ToProperty(this, x => x.SearchResults);
         // _searchResults.ThrownExceptions.Subscribe(e => Console.WriteLine(e.ToString()));
     }
-    [Reactive]
-    public string SearchTerm { get; set; }
+
+    [Reactive] public string SearchTerm { get; set; }
 
     public IEnumerable<CurrencyViewModel> SearchResults => _searchResults.Value;
     public bool IsAvailable => _isAvailable.Value;
+
+    public string? UrlPathSegment => "search";
+    public IScreen HostScreen { get; }
 
     private async Task<IEnumerable<CurrencyViewModel>> SearchCurrenciesAsync(string term, CancellationToken token)
     {
@@ -44,9 +44,6 @@ public class SearchViewModel : ReactiveObject, IRoutableViewModel
     private async Task<CurrencyViewModel> GetCurrencyViewModel(Currency currency)
     {
         var candles = await _currencyService.With<CoinGeckoApiProvider>().GetCandles(currency.Id);
-            return new CurrencyItemViewModel(currency, candles, HostScreen);
+        return new CurrencyItemViewModel(currency, candles, HostScreen);
     }
-
-    public string? UrlPathSegment => "search";
-    public IScreen HostScreen { get; }
 }

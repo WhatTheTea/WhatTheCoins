@@ -6,11 +6,13 @@ namespace WhatTheCoins.UI.ViewModels.Controls;
 
 public class CurrencyItemViewModel : CurrencyViewModel
 {
-    public CurrencyItemViewModel(Currency currency, IEnumerable<Candle> candles, IScreen screen) : base(currency, candles)
+    public ReactiveCommand<Unit, IRoutableViewModel> OpenCurrencyInfo;
+
+    public CurrencyItemViewModel(Currency currency, IEnumerable<Candle> candles, IScreen screen) : base(currency,
+        candles)
     {
         OpenCurrencyInfo =
-            ReactiveCommand.CreateFromObservable(()=>screen.Router.Navigate.Execute(new CurrencyInfoViewModel(currency, candles, screen)));
+            ReactiveCommand.CreateFromObservable(() =>
+                screen.Router.Navigate.Execute(new CurrencyInfoViewModel(currency, candles, screen)));
     }
-
-    public ReactiveCommand<Unit, IRoutableViewModel> OpenCurrencyInfo;
 }

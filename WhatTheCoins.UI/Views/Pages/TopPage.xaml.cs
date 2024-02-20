@@ -1,7 +1,6 @@
 ﻿using System.Reactive.Disposables;
 using ReactiveUI;
 using Splat;
-using WhatTheCoins.UI.ViewModels;
 using WhatTheCoins.UI.ViewModels.Pages;
 
 namespace WhatTheCoins.UI.Views.Pages;

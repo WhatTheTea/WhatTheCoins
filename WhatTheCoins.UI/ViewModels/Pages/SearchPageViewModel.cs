@@ -7,10 +7,6 @@ namespace WhatTheCoins.UI.ViewModels.Pages;
 
 public class SearchPageViewModel : ReactiveObject, IScreen
 {
-    public RoutingState Router { get; }  
-    public ReactiveCommand<IRoutableViewModel, IRoutableViewModel> GoNext { get; }
-    public ReactiveCommand<Unit, IRoutableViewModel> GoBack { get; }
-
     public SearchPageViewModel(ICurrencyService currencyService)
     {
         Router = new RoutingState();
@@ -19,4 +15,8 @@ public class SearchPageViewModel : ReactiveObject, IScreen
 
         GoNext.Execute(new SearchViewModel(currencyService, this)).Subscribe();
     }
+
+    public ReactiveCommand<IRoutableViewModel, IRoutableViewModel> GoNext { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> GoBack { get; }
+    public RoutingState Router { get; }
 }

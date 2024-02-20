@@ -9,7 +9,8 @@ namespace WhatTheCoins.UI.ViewModels.Controls;
 
 public class CurrencyInfoViewModel : CurrencyViewModel, IRoutableViewModel
 {
-    public CurrencyInfoViewModel(Currency currency, IEnumerable<Candle> candles, IScreen screen) : base(currency, candles)
+    public CurrencyInfoViewModel(Currency currency, IEnumerable<Candle> candles, IScreen screen) : base(currency,
+        candles)
     {
         HostScreen = screen;
         GoBack = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.NavigateBack.Execute(Unit.Default));
@@ -29,9 +30,10 @@ public class CurrencyInfoViewModel : CurrencyViewModel, IRoutableViewModel
             }
         ];
     }
-    public ReactiveCommand<Unit,IRoutableViewModel> GoBack { get; }
-    public string? UrlPathSegment => "currency";
-    public IScreen HostScreen { get; }
+
+    public ReactiveCommand<Unit, IRoutableViewModel> GoBack { get; }
     public ISeries[] Candlesticks { get; }
     public Axis[] XAxes { get; }
+    public string? UrlPathSegment => "currency";
+    public IScreen HostScreen { get; }
 }

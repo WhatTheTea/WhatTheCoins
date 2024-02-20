@@ -1,9 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reactive;
-using LiveChartsCore;
-using LiveChartsCore.Defaults;
-using LiveChartsCore.SkiaSharpView;
-using ReactiveUI;
+﻿using ReactiveUI;
 using WhatTheCoins.API;
 
 namespace WhatTheCoins.UI.ViewModels.Controls;

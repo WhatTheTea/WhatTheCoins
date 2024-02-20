@@ -8,7 +8,6 @@
                    xmlns:p="clr-namespace:WhatTheCoins.UI.Views.Pages"
                    xmlns:rx="http://reactiveui.net"
                    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-                   xmlns:controls="clr-namespace:WhatTheCoins.UI.Views.Controls"
                    Title="WhatTheCoins" Height="600" Width="900"
 
                    mc:Ignorable="d">

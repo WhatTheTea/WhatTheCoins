@@ -1,5 +1,4 @@
 ﻿using System.Reactive.Disposables;
-using System.Windows.Controls;
 using ReactiveUI;
 
 namespace WhatTheCoins.UI.Views.Controls;

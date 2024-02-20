@@ -8,5 +8,5 @@
                  xmlns:pages="clr-namespace:WhatTheCoins.UI.ViewModels.Pages"
                  mc:Ignorable="d"
                  Title="Top10Page" Height="450" Width="800">
-    <rx:RoutedViewHost x:Name="ViewHost"/>
+    <rx:RoutedViewHost x:Name="ViewHost" />
 </rx:ReactivePage>

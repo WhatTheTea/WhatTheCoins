@@ -1,7 +1,5 @@
 ﻿using System.Reactive.Disposables;
 using ReactiveUI;
-using Splat;
-using WhatTheCoins.UI.ViewModels.Controls;
 
 namespace WhatTheCoins.UI.Views.Controls;
 

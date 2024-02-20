@@ -1,13 +1,12 @@
 ﻿<rx:ReactivePage x:Class="WhatTheCoins.UI.Views.Pages.SearchPageView"
                  x:TypeArguments="vm:SearchPageViewModel"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:WhatTheCoins.UI.Views.Pages"
-      xmlns:vm="clr-namespace:WhatTheCoins.UI.ViewModels.Pages"
-      xmlns:rx="http://reactiveui.net"
-      mc:Ignorable="d"
-      Title="Search">
-        <rx:RoutedViewHost x:Name="ViewHost"/>
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:vm="clr-namespace:WhatTheCoins.UI.ViewModels.Pages"
+                 xmlns:rx="http://reactiveui.net"
+                 mc:Ignorable="d"
+                 Title="Search">
+    <rx:RoutedViewHost x:Name="ViewHost" />
 </rx:ReactivePage>

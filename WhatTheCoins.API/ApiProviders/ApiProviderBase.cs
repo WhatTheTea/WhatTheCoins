@@ -14,7 +14,8 @@ public abstract class ApiProviderBase(HttpClient httpClient) : IApiProvider
     protected async Task<T> GetDTO<T>(string requestURL)
     {
         var request = await httpClient.GetAsync(requestURL);
-        if (request.StatusCode != HttpStatusCode.OK) throw new Exception("Request " + requestURL + " is not ok: "+await request.Content.ReadAsStringAsync()); 
+        if (request.StatusCode != HttpStatusCode.OK)
+            throw new Exception("Request " + requestURL + " is not ok: " + await request.Content.ReadAsStringAsync());
         var rawJSON = await request.Content.ReadAsStringAsync();
         var dto = JsonDocument.Parse(rawJSON).Deserialize<T>();
         return dto;

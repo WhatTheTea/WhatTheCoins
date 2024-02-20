@@ -21,7 +21,6 @@ internal record DTO(
 {
     internal override API.Currency ToCurrency()
     {
-        
         return new API.Currency(Id, Symbol, MarketData.TotalVolume["usd"],
             MarketData.PriceChange24h ?? 0, MarketData.CurrentPrice.ToImmutableDictionary(),
             BuildMarketPlaces(Id));

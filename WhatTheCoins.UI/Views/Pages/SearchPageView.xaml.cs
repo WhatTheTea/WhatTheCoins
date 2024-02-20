@@ -1,5 +1,4 @@
 ﻿using System.Reactive.Disposables;
-using System.Windows.Controls;
 using ReactiveUI;
 using Splat;
 using WhatTheCoins.UI.ViewModels.Pages;
@@ -19,6 +18,6 @@ public partial class SearchPageView
                         x => x.ViewHost.Router)
                     .DisposeWith(disposable);
             }
-            );
+        );
     }
 }

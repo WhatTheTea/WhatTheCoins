@@ -27,7 +27,7 @@ public partial class App
                 var resolver = Locator.CurrentMutable;
                 resolver.InitializeSplat();
                 resolver.InitializeReactiveUI();
-                
+
                 services.AddWhatTheCoinsApi()
                     .AddWhatTheCoinUiViewModels()
                     .AddWhatTheCoinsViews()
