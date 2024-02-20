@@ -26,7 +26,8 @@ public static class IoCExtensions
 
     public static IServiceCollection AddWhatTheCoinsViews(this IServiceCollection services) =>
         services
-            .AddTransient<IViewFor<CurrencyViewModel>, CurrencyView>()
+            .AddTransient<IViewFor<CurrencyItemViewModel>, CurrencyItemView>()
+            .AddTransient<IViewFor<CurrencyInfoViewModel>, CurrencyInfoView>()
             .AddSingleton<IViewFor<SearchPageViewModel>, SearchPageView>()
             .AddSingleton<IViewFor<SearchViewModel>, SearchView>();
 }

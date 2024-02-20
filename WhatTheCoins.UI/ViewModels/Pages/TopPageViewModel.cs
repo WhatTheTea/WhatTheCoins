@@ -7,7 +7,7 @@ using WhatTheCoins.UI.ViewModels.Controls;
 
 namespace WhatTheCoins.UI.ViewModels.Pages;
 
-public class TopPageViewModel : ReactiveObject
+public class TopPageViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly ICurrencyService _currencyService;
 
@@ -25,10 +25,18 @@ public class TopPageViewModel : ReactiveObject
     [Reactive] public IEnumerable<CurrencyViewModel> TopCurrencies { get; private set; }
 
     public ReactiveCommand<Unit, IEnumerable<CurrencyViewModel>> LoadTopCurrencies { get; }
-
+// TODO
     private async Task<IEnumerable<CurrencyViewModel>> GetTopCurrenciesAsync()
     {
         var apiResponse = await _currencyService.GetTop10Async();
-        return apiResponse.Select(currency => new CurrencyViewModel(currency));
+        return await Task.WhenAll(apiResponse.Select(GetCurrencyViewModel));
     }
+    private async Task<CurrencyViewModel> GetCurrencyViewModel(Currency currency)
+    {
+        var candles = await _currencyService.GetCandles(currency.Id);
+        return new CurrencyInfoViewModel(currency, candles, HostScreen);
+    }
+// END 
+    public string? UrlPathSegment => "top";
+    public IScreen HostScreen { get; }
 }

@@ -15,7 +15,7 @@
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
         </Page>
-        <Page Update="Views\Controls\CurrencyView.xaml">
+        <Page Update="Views\Controls\CurrencyItemView.xaml">
             <Generator>MSBuild:Compile</Generator>
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
