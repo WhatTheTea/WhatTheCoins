@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Collections.ObjectModel;
+using System.Web;
 using WhatTheCoins.API.DTO.CoinGecko;
 
 namespace WhatTheCoins.API.ApiProviders;
@@ -8,8 +9,7 @@ public class CoinGeckoApiProvider(HttpClient httpClient) : ApiProviderBase(httpC
 {
     private const string CurrencyDataRequestURL = "https://api.coingecko.com/api/v3/coins/{0}";
 
-    private const string CandlesDataRequestURL =
-        "https://api.coingecko.com/api/v3/coins/{0}/ohlc?vs_currency={1}&days={2}";
+    private const string CandlesDataRequestURL =  "https://api.coingecko.com/api/v3/coins/{0}/ohlc?vs_currency={2}&days={1}";
 
     private const string SearchRequestURL = "https://api.coingecko.com/api/v3/search?query={0}";
 
