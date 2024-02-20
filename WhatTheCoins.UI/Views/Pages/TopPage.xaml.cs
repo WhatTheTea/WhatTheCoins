@@ -1,13 +1,13 @@
 ﻿using System.Reactive.Disposables;
 using ReactiveUI;
 using Splat;
-using WhatTheCoins.UI.ViewModels;
+using WhatTheCoins.UI.ViewModels.Pages;
 
 namespace WhatTheCoins.UI.Views.Pages;
 
-public partial class Top10Page
+public partial class TopPage
 {
-    public Top10Page()
+    public TopPage()
     {
         InitializeComponent();
         ViewModel = Locator.Current.GetService<TopPageViewModel>()!;
@@ -15,8 +15,8 @@ public partial class Top10Page
         this.WhenActivated(disposable =>
             {
                 this.OneWayBind(ViewModel,
-                        vm => vm.TopCurrencies,
-                        page => page.TopListBox.ItemsSource)
+                        vm => vm.Router,
+                        page => page.ViewHost.Router)
                     .DisposeWith(disposable);
             }
         );

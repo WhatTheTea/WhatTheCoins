@@ -53,7 +53,7 @@ public static class ExpectedData
                     It.IsAny<int>(),
                     It.IsAny<string>()))
                 .ReturnsAsync(ExpectedCandles);
-            idealProvider.Setup(provider => provider.GetTop10Async()).ReturnsAsync(ExpectedCoins.ToImmutableArray());
+            idealProvider.Setup(provider => provider.GetTopAsync()).ReturnsAsync(ExpectedCoins.ToImmutableArray());
             return idealProvider.Object;
         }
     }
@@ -77,7 +77,7 @@ public static class ExpectedData
                 It.IsAny<int>(),
                 It.IsAny<string>()))
             .ReturnsAsync(ExpectedCandles);
-        idealProvider.Setup(provider => provider.GetTop10Async()).ReturnsAsync(ExpectedCoins.ToImmutableArray());
+        idealProvider.Setup(provider => provider.GetTopAsync()).ReturnsAsync(ExpectedCoins.ToImmutableArray());
         return idealProvider.Object;
     }
 }

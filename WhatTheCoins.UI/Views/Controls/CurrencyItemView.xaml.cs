@@ -3,9 +3,9 @@ using ReactiveUI;
 
 namespace WhatTheCoins.UI.Views.Controls;
 
-public partial class CurrencyView
+public partial class CurrencyItemView
 {
-    public CurrencyView()
+    public CurrencyItemView()
     {
         InitializeComponent();
         this.WhenActivated(disposable =>
@@ -21,7 +21,7 @@ public partial class CurrencyView
                 .DisposeWith(disposable);
 
             this.BindCommand(ViewModel,
-                    viewModel => viewModel.OpenPage,
+                    viewModel => viewModel.OpenCurrencyInfo,
                     view => view.CurrencyMarket)
                 .DisposeWith(disposable);
         });

@@ -73,7 +73,7 @@ public abstract class ApiProviderTest<TApiProvider> where TApiProvider : IApiPro
             .Build();
         var provider = MakeApiProvider(HttpClient);
 
-        var data = await provider.GetTop10Async();
+        var data = await provider.GetTopAsync();
 
         data.Should().ContainInOrder(ExpectedData.ExpectedCoins);
     }
