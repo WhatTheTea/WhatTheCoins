@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
+using Splat;
 using WhatTheCoins.API;
 using WhatTheCoins.API.ApiProviders;
 using WhatTheCoins.UI.ViewModels;
@@ -16,7 +17,10 @@ public static class IoCExtensions
     public static IServiceCollection AddWhatTheCoinsApi(this IServiceCollection services) =>
         services.AddHttpClient()
             .AddSingleton<ICurrencyService, CurrencyService>()
-            .AddSingleton<IApiProvider, CoinCapApiProvider>();
+            .AddSingleton<CoinCapApiProvider>()
+            .AddSingleton<CoinGeckoApiProvider>()
+            .AddSingleton<IApiProvider, CoinCapApiProvider>(factory => Locator.Current.GetService<CoinCapApiProvider>())
+        ;
 
 
     public static IServiceCollection AddWhatTheCoinUiViewModels(this IServiceCollection services) =>

@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Net.Http;
 using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
 using WhatTheCoins.API;
+using WhatTheCoins.API.ApiProviders;
 
 namespace WhatTheCoins.UI.ViewModels.Controls;
 
@@ -12,8 +14,6 @@ public class SearchViewModel : ReactiveObject, IRoutableViewModel
     private readonly ICurrencyService _currencyService;
     private readonly ObservableAsPropertyHelper<bool> _isAvailable;
     private readonly ObservableAsPropertyHelper<IEnumerable<CurrencyViewModel>> _searchResults;
-    private string _searchTerm;
-
 
     public SearchViewModel(ICurrencyService currencyService, IScreen? hostScreen = null)
     {
@@ -27,6 +27,7 @@ public class SearchViewModel : ReactiveObject, IRoutableViewModel
             .SelectMany(SearchCurrenciesAsync)
             .ObserveOn(RxApp.MainThreadScheduler)
             .ToProperty(this, x => x.SearchResults);
+        // _searchResults.ThrownExceptions.Subscribe(e => Console.WriteLine(e.ToString()));
     }
     [Reactive]
     public string SearchTerm { get; set; }
@@ -36,14 +37,14 @@ public class SearchViewModel : ReactiveObject, IRoutableViewModel
 
     private async Task<IEnumerable<CurrencyViewModel>> SearchCurrenciesAsync(string term, CancellationToken token)
     {
-        var currencies = await _currencyService.SearchAsync(term);
+        var currencies = await _currencyService.With<CoinCapApiProvider>().SearchAsync(term);
         return await Task.WhenAll(currencies.Select(async c => await GetCurrencyViewModel(c)));
     }
 
     private async Task<CurrencyViewModel> GetCurrencyViewModel(Currency currency)
     {
-        var candles = await _currencyService.GetCandles(currency.Id);
-        return new CurrencyItemViewModel(currency, candles, HostScreen);
+        var candles = await _currencyService.With<CoinGeckoApiProvider>().GetCandles(currency.Id);
+            return new CurrencyItemViewModel(currency, candles, HostScreen);
     }
 
     public string? UrlPathSegment => "search";

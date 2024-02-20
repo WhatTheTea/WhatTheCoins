@@ -40,7 +40,7 @@ public class CoinGeckoApiProvider(HttpClient httpClient) : ApiProviderBase(httpC
         string referenceCurrency = "usd")
     {
         var rawCandles = await GetDTO<Collection<CandleDTO>>(
-            string.Format(CandlesDataRequestURL, id, days, referenceCurrency));
+            string.Format(CandlesDataRequestURL, id, HttpUtility.UrlEncode(days.ToString()), referenceCurrency));
         // Unpack data to Candles
         return rawCandles.Select(candle => candle.ToCandle()).ToImmutableArray();
     }
