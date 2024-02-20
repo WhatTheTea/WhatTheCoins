@@ -1,12 +1,26 @@
-﻿<Page x:Class="WhatTheCoins.UI.Views.Pages.Top10Page"
+﻿<rx:ReactivePage x:Class="WhatTheCoins.UI.Views.Pages.Top10Page"
+      x:TypeArguments="vm:TopPageViewModel"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:WhatTheCoins.UI.Views.Pages"
+      xmlns:vm="clr-namespace:WhatTheCoins.UI.ViewModels"
+      xmlns:rx="http://reactiveui.net"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       mc:Ignorable="d"
       Title="Top10Page" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Margin="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ListBox x:Name="TopListBox" Grid.ColumnSpan="3"
+                 Grid.Row="1" Margin="0,6,0,0" HorizontalContentAlignment="Stretch"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
     </Grid>
-</Page>
+</rx:ReactivePage>
