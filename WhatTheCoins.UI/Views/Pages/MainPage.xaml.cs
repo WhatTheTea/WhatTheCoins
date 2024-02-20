@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
+﻿namespace WhatTheCoins.UI.Views.Pages;
 
-namespace WhatTheCoins.UI.Views.Pages;
-
-public partial class MainPage : Page
+public partial class MainPage
 {
     public MainPage()
     {

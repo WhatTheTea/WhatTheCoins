@@ -10,31 +10,31 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Page Update="Views\MainWindow.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
-      <Page Update="Views\Controls\CurrencyView.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
+        <Page Update="Views\MainWindow.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Views\Controls\CurrencyView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WhatTheCoins.API\WhatTheCoins.API.csproj" />
+        <ProjectReference Include="..\WhatTheCoins.API\WhatTheCoins.API.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-      <PackageReference Include="ReactiveUI.Fody" Version="19.5.41" />
-      <PackageReference Include="ReactiveUI.WPF" Version="19.5.41" />
-      <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.8.12" />
-      <PackageReference Include="WPF-UI" Version="3.0.0" />
+        <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0"/>
+        <PackageReference Include="ReactiveUI.Fody" Version="19.5.41"/>
+        <PackageReference Include="ReactiveUI.WPF" Version="19.5.41"/>
+        <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.8.12"/>
+        <PackageReference Include="WPF-UI" Version="3.0.0"/>
     </ItemGroup>
 
 </Project>

@@ -9,12 +9,6 @@ public class CurrencyViewModel : ReactiveObject
 {
     private readonly Currency _currency;
 
-    public Uri MarketUrl => new(_currency.MarketPlaces[0]);
-    public string Id => _currency.Id;
-    public double Price => _currency.SymbolToPrice["usd"];
-    
-    public ReactiveCommand<Unit, Unit> OpenPage { get; }
-    
     public CurrencyViewModel(Currency currency)
     {
         _currency = currency;
@@ -22,11 +16,16 @@ public class CurrencyViewModel : ReactiveObject
             () =>
             {
                 Process.Start(
-                    new ProcessStartInfo(this.MarketUrl.ToString())
+                    new ProcessStartInfo(MarketUrl.ToString())
                     {
                         UseShellExecute = true
                     });
             });
     }
-    
+
+    public Uri MarketUrl => new(_currency.MarketPlaces[0]);
+    public string Id => _currency.Id;
+    public double Price => _currency.SymbolToPrice["usd"];
+
+    public ReactiveCommand<Unit, Unit> OpenPage { get; }
 }
