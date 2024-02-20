@@ -1,31 +1,18 @@
 ﻿using System.Diagnostics;
 using System.Reactive;
+using LiveChartsCore;
+using LiveChartsCore.Defaults;
+using LiveChartsCore.SkiaSharpView;
 using ReactiveUI;
 using WhatTheCoins.API;
 
 namespace WhatTheCoins.UI.ViewModels.Controls;
 
-public class CurrencyViewModel : ReactiveObject
+public class CurrencyViewModel(Currency currency, IEnumerable<Candle> candles) : ReactiveObject
 {
-    private readonly Currency _currency;
-
-    public CurrencyViewModel(Currency currency)
-    {
-        _currency = currency;
-        OpenPage = ReactiveCommand.Create(
-            () =>
-            {
-                Process.Start(
-                    new ProcessStartInfo(MarketUrl.ToString())
-                    {
-                        UseShellExecute = true
-                    });
-            });
-    }
-
-    public Uri MarketUrl => new(_currency.MarketPlaces[0]);
-    public string Id => _currency.Id;
-    public double Price => _currency.SymbolToPrice["usd"];
-
-    public ReactiveCommand<Unit, Unit> OpenPage { get; }
+    public Uri[] MarketUrls => currency.MarketPlaces.Select(s => new Uri(s)).ToArray();
+    public string Id => currency.Id;
+    public double Price => currency.SymbolToPrice["usd"];
+    
+    
 }
