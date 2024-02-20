@@ -8,36 +8,19 @@ using WhatTheCoins.UI.ViewModels.Controls;
 
 namespace WhatTheCoins.UI.ViewModels.Pages;
 
-public class TopPageViewModel : ReactiveObject, IRoutableViewModel
+public class TopPageViewModel : ReactiveObject, IScreen
 {
-    private readonly ICurrencyService _currencyService;
+    
+public RoutingState Router { get; }
+public ReactiveCommand<IRoutableViewModel, IRoutableViewModel> GoNext { get; }
+public ReactiveCommand<Unit, IRoutableViewModel> GoBack { get; }
 
+public TopPageViewModel(ICurrencyService currencyService)
+{
+    Router = new RoutingState();
+    GoNext = ReactiveCommand.CreateFromObservable((IRoutableViewModel model) => Router.Navigate.Execute(model));
+    GoBack = ReactiveCommand.CreateFromObservable(() => Router.NavigateBack.Execute(Unit.Default));
 
-    public TopPageViewModel(ICurrencyService currencyService)
-    {
-        _currencyService = currencyService;
-
-        LoadTopCurrencies = ReactiveCommand.CreateFromTask(async _ => await GetTopCurrenciesAsync());
-        LoadTopCurrencies.ObserveOn(RxApp.MainThreadScheduler)
-            .Subscribe(currencies => TopCurrencies = currencies);
-        LoadTopCurrencies.Execute().Subscribe();
-    }
-
-    [Reactive] public IEnumerable<CurrencyViewModel> TopCurrencies { get; private set; }
-
-    public ReactiveCommand<Unit, IEnumerable<CurrencyViewModel>> LoadTopCurrencies { get; }
-// TODO
-    private async Task<IEnumerable<CurrencyViewModel>> GetTopCurrenciesAsync()
-    {
-        var apiResponse = await _currencyService.With<CoinGeckoApiProvider>().GetTopAsync();
-        return await Task.WhenAll(apiResponse.Select(GetCurrencyViewModel));
-    }
-    private async Task<CurrencyViewModel> GetCurrencyViewModel(Currency currency)
-    {
-        var candles = await _currencyService.With<CoinGeckoApiProvider>().GetCandles(currency.Id);
-        return new CurrencyInfoViewModel(currency, candles, HostScreen);
-    }
-// END 
-    public string? UrlPathSegment => "top";
-    public IScreen HostScreen { get; }
+    GoNext.Execute(new TopViewModel(currencyService, this)).Subscribe();
+}
 }

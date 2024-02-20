@@ -33,5 +33,8 @@ public static class IoCExtensions
             .AddTransient<IViewFor<CurrencyItemViewModel>, CurrencyItemView>()
             .AddTransient<IViewFor<CurrencyInfoViewModel>, CurrencyInfoView>()
             .AddSingleton<IViewFor<SearchPageViewModel>, SearchPageView>()
-            .AddSingleton<IViewFor<SearchViewModel>, SearchView>();
+            .AddSingleton<IViewFor<SearchViewModel>, SearchView>()
+            .AddSingleton<IViewFor<TopPageViewModel>, TopPage>()
+            .AddSingleton<IViewFor<TopViewModel>, TopView>()
+        ;
 }
