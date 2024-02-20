@@ -9,7 +9,7 @@
                    xmlns:rx="http://reactiveui.net"
                    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                    xmlns:controls="clr-namespace:WhatTheCoins.UI.Views.Controls"
-                   Title="WhatTheCoins" Height="450" Width="600"
+                   Title="WhatTheCoins" Height="600" Width="900"
 
                    mc:Ignorable="d">
     <StackPanel>
@@ -31,8 +31,8 @@
                 <ui:NavigationViewItem TargetPageType="{x:Type p:SearchPageView}"
                                        Content="Search"
                                        Icon="{ui:SymbolIcon Search12}" />
-                <ui:NavigationViewItem TargetPageType="{x:Type p:Top10Page}"
-                                       Content="Top10"
+                <ui:NavigationViewItem TargetPageType="{x:Type p:TopPage}"
+                                       Content="Top"
                                        Icon="{ui:SymbolIcon AppsList24}" />
             </ui:NavigationView.MenuItems>
         </ui:NavigationView>

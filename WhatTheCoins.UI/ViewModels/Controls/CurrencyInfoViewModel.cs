@@ -1,4 +1,5 @@
-﻿using LiveChartsCore;
+﻿using System.Reactive;
+using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using ReactiveUI;
@@ -11,7 +12,7 @@ public class CurrencyInfoViewModel : CurrencyViewModel, IRoutableViewModel
     public CurrencyInfoViewModel(Currency currency, IEnumerable<Candle> candles, IScreen screen) : base(currency, candles)
     {
         HostScreen = screen;
-        
+        GoBack = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.NavigateBack.Execute(Unit.Default));
         Candlesticks =
         [
             new CandlesticksSeries<FinancialPointI>
@@ -28,7 +29,7 @@ public class CurrencyInfoViewModel : CurrencyViewModel, IRoutableViewModel
             }
         ];
     }
-
+    public ReactiveCommand<Unit,IRoutableViewModel> GoBack { get; }
     public string? UrlPathSegment => "currency";
     public IScreen HostScreen { get; }
     public ISeries[] Candlesticks { get; }

@@ -10,8 +10,42 @@
              xmlns:controls="clr-namespace:WhatTheCoins.UI.ViewModels.Controls"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="800">
     <Grid>
-        <lvc:CartesianChart x:Name="CandlesChart"></lvc:CartesianChart>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.21*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            
+        </Grid.RowDefinitions>
+        
+        <ui:Button x:Name="BackButton" Grid.Row="0" Margin="15,0">Back</ui:Button>
+        <ui:TextBlock Grid.Row="0" Grid.Column="1"
+                      FontWeight="DemiBold"
+                      FontSize="28"
+                      Margin="0,15" Text="CryptoID"
+                      x:Name="CurrencyId"/>
+        <ui:TextBlock Grid.Row="1" Grid.Column="1"
+                      FontSize="18"
+                      Margin="5,1" Text="Price: $100000"
+                      x:Name="CurrencyPrice"/>
+        <ui:TextBlock Grid.Row="2" Grid.Column="1"
+                      FontSize="18"
+                      Margin="5,1" Text="Price Change: -1%"
+                      x:Name="CurrencyPriceChange"/>
+        <ui:TextBlock Grid.Row="3" Grid.Column="1"
+                      FontSize="18"
+                      Margin="5,1" Text="Volume: $2353134"
+                      x:Name="CurrencyVolume"/>
+        <lvc:CartesianChart x:Name="CandlesChart"
+                            Grid.Column="0" Grid.Row="4"
+                            Grid.ColumnSpan="2"
+                            />
     </Grid>
 </rx:ReactiveUserControl>
