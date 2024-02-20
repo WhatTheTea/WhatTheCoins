@@ -53,10 +53,12 @@ public partial class App
             .AddSingleton<IApiProvider, CoinCapApiProvider>();
 
         services.AddSingleton<AppViewModel>()
-            .AddTransient<SearchPageViewModel>();
+            .AddTransient<SearchPageViewModel>()
+            .AddTransient<TopPageViewModel>();
 
         services.AddSingleton<IViewFor<AppViewModel>, MainWindow>()
             .AddTransient<IViewFor<SearchPageViewModel>, SearchPage>()
-            .AddTransient<IViewFor<CurrencyViewModel>, CurrencyView>();
+            .AddTransient<IViewFor<CurrencyViewModel>, CurrencyView>()
+            .AddTransient<IViewFor<TopPageViewModel>, Top10Page>();
     }
 }

@@ -14,6 +14,7 @@ public class SearchPageViewModel : ReactiveObject
     private string _searchTerm;
     public string SearchTerm
     {
+        
         get => _searchTerm;
         set => this.RaiseAndSetIfChanged(ref _searchTerm, value);
     }
@@ -29,12 +30,12 @@ public class SearchPageViewModel : ReactiveObject
             .Select(term => term?.Trim())
             .DistinctUntilChanged()
             .Where(term => !string.IsNullOrWhiteSpace(term))
-            .SelectMany(SearchCurrencies)
+            .SelectMany(SearchCurrenciesAsync)
             .ObserveOn(RxApp.MainThreadScheduler)
             .ToProperty(this, x => x.SearchResults);
     }
 
-    private async Task<IEnumerable<CurrencyViewModel>> SearchCurrencies(string term, CancellationToken token)
+    private async Task<IEnumerable<CurrencyViewModel>> SearchCurrenciesAsync(string term, CancellationToken token)
     {
         var apiResponse = await _currencyService.SearchAsync(term);
         return apiResponse.Select(c => new CurrencyViewModel(c));
