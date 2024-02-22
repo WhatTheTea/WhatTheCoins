@@ -7,6 +7,6 @@
                  xmlns:rx="http://reactiveui.net"
                  xmlns:pages="clr-namespace:WhatTheCoins.UI.ViewModels.Pages"
                  mc:Ignorable="d"
-                 Title="Top10Page" Height="450" Width="800">
+                 Title="Top10Page">
     <rx:RoutedViewHost x:Name="ViewHost" />
 </rx:ReactivePage>
