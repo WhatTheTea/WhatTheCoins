@@ -1,4 +1,6 @@
-﻿using WhatTheCoins.UI.Views.Pages;
+﻿using System.Windows;
+using ReactiveUI;
+using WhatTheCoins.UI.Views.Pages;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
@@ -12,6 +14,9 @@ public partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
+
+        
+        
         Loaded += (_, _) =>
         {
             SystemThemeWatcher.Watch(this, WindowBackdropType.Auto);
