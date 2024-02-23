@@ -34,6 +34,9 @@
                                        Content="Top"
                                        Icon="{ui:SymbolIcon AppsList24}" />
             </ui:NavigationView.MenuItems>
+            <ui:NavigationView.ContentOverlay>
+                <ui:SnackbarPresenter x:Name="SnackbarPresenter"/>
+            </ui:NavigationView.ContentOverlay>
         </ui:NavigationView>
     </StackPanel>
 

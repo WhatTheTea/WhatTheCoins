@@ -2,6 +2,7 @@
 using ReactiveUI;
 using Splat;
 using Splat.Microsoft.Extensions.DependencyInjection;
+using WhatTheCoins.UI.ViewModels;
 
 namespace WhatTheCoins.UI;
 
@@ -13,6 +14,9 @@ public partial class App
     public App()
     {
         InitIoC();
+        
+        
+        
     }
 
     private IServiceProvider Container { get; set; }

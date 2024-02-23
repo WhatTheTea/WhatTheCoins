@@ -6,8 +6,10 @@ using WhatTheCoins.API.ApiProviders;
 using WhatTheCoins.UI.ViewModels;
 using WhatTheCoins.UI.ViewModels.Controls;
 using WhatTheCoins.UI.ViewModels.Pages;
+using WhatTheCoins.UI.Views;
 using WhatTheCoins.UI.Views.Controls;
 using WhatTheCoins.UI.Views.Pages;
+using Wpf.Ui;
 
 namespace WhatTheCoins.UI;
 
@@ -20,7 +22,8 @@ public static class IoCExtensions
             .AddSingleton<CoinCapApiProvider>()
             .AddSingleton<CoinGeckoApiProvider>()
             .AddSingleton<IApiProvider,
-                CoinCapApiProvider>(factory => Locator.Current.GetService<CoinCapApiProvider>());
+                CoinCapApiProvider>(factory => Locator.Current.GetService<CoinCapApiProvider>())
+            .AddSingleton<ISnackbarService, SnackbarService>();
     }
 
 
@@ -39,6 +42,7 @@ public static class IoCExtensions
             .AddSingleton<IViewFor<SearchPageViewModel>, SearchPageView>()
             .AddSingleton<IViewFor<SearchViewModel>, SearchView>()
             .AddSingleton<IViewFor<TopPageViewModel>, TopPage>()
-            .AddSingleton<IViewFor<TopViewModel>, TopView>();
+            .AddSingleton<IViewFor<TopViewModel>, TopView>()
+            .AddSingleton<IViewFor<MainWindowViewModel>, MainWindow>();
     }
 }

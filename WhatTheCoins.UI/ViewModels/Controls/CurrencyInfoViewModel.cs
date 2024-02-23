@@ -4,13 +4,14 @@ using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using ReactiveUI;
 using WhatTheCoins.API;
+using Wpf.Ui;
 
 namespace WhatTheCoins.UI.ViewModels.Controls;
 
 public class CurrencyInfoViewModel : CurrencyViewModel, IRoutableViewModel
 {
-    public CurrencyInfoViewModel(Currency currency, IEnumerable<Candle> candles, IScreen screen) : base(currency,
-        candles)
+    public CurrencyInfoViewModel(Currency currency, IEnumerable<Candle> candles, IScreen screen)
+        : base(currency, candles)
     {
         HostScreen = screen;
         GoBack = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.NavigateBack.Execute(Unit.Default));
