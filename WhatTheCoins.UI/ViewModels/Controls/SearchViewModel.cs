@@ -1,8 +1,11 @@
 ﻿using System.Reactive.Linq;
+using LiveChartsCore.Kernel;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using WhatTheCoins.API;
 using WhatTheCoins.API.ApiProviders;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace WhatTheCoins.UI.ViewModels.Controls;
 
@@ -12,7 +15,7 @@ public class SearchViewModel : ReactiveObject, IRoutableViewModel
     private readonly ObservableAsPropertyHelper<bool> _isAvailable;
     private readonly ObservableAsPropertyHelper<IEnumerable<CurrencyViewModel>> _searchResults;
 
-    public SearchViewModel(ICurrencyService currencyService, IScreen? hostScreen = null)
+    public SearchViewModel(ICurrencyService currencyService, ISnackbarService snackbarService, IScreen? hostScreen = null)
     {
         _currencyService = currencyService;
         HostScreen = hostScreen;
@@ -24,7 +27,11 @@ public class SearchViewModel : ReactiveObject, IRoutableViewModel
             .SelectMany(SearchCurrenciesAsync)
             .ObserveOn(RxApp.MainThreadScheduler)
             .ToProperty(this, x => x.SearchResults);
-        // _searchResults.ThrownExceptions.Subscribe(e => Console.WriteLine(e.ToString()));
+        _searchResults.ThrownExceptions.Subscribe(e => snackbarService.Show("Error",
+            e.Message,
+            ControlAppearance.Danger,
+            null,
+            TimeSpan.FromSeconds(5)));
     }
 
     [Reactive] public string SearchTerm { get; set; }
