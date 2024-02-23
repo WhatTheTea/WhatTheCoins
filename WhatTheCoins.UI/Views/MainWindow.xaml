@@ -14,7 +14,7 @@
     <StackPanel>
         <ui:NavigationView PaneDisplayMode="LeftFluent"
                            Height="{Binding ActualHeight,Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}"
-                           Margin="10"
+                           d:DesignHeight="500"
                            IsPaneToggleVisible="False"
                            x:Name="MainMenuNavigationView">
             <ui:NavigationView.PaneHeader>
